@@ -1,41 +1,46 @@
 "use client";
 
-import { TARGET_AUDIENCE, getWhatsAppLink } from "@/lib/constants";
+import { getWhatsAppLink } from "@/lib/constants";
 
 export default function FinalCTA() {
   return (
     <section className="section bg-white">
-      <div className="container-luxury max-w-3xl mx-auto">
-        {/* For whom */}
-        <div className="text-center mb-8">
-          <p className="font-script text-xl md:text-2xl text-[#A69B8C] mb-3">
-            Para quem é
-          </p>
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-serif text-[#2D2D2D] leading-relaxed">
-            HIDAKA é para quem busca exclusividade real,
-            narrativa estética própria e peças construídas
-            com intenção, rigor e autenticidade.
-          </h2>
-        </div>
+      <div className="container max-w-3xl mx-auto text-center">
+        {/* Headline */}
+        <p className="text-[11px] uppercase tracking-[0.3em] text-[#8b7355] font-medium mb-4">
+          Para quem é
+        </p>
 
-        {/* Target audience list */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
-          {TARGET_AUDIENCE.map((item, index) => (
+        <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#1a1a1a] leading-[1.3] mb-8">
+          HIDAKA é para quem busca exclusividade real,
+          narrativa estética própria e peças construídas
+          com intenção, rigor e autenticidade.
+        </h2>
+
+        {/* Target Tags */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          {[
+            "Mulheres que buscam exclusividade",
+            "Quem valoriza experiência e cuidado",
+            "Quem deseja peças únicas",
+            "Quem prioriza conforto e privacidade",
+            "Quem busca luxo elegante e discreto",
+          ].map((tag, index) => (
             <span
               key={index}
-              className="px-4 py-2 bg-[#F5F3EF] text-[#5A5A5A] text-xs font-body"
+              className="px-4 py-2 bg-[#fafafa] text-[#4a4a4a] text-sm"
             >
-              {item}
+              {tag}
             </span>
           ))}
         </div>
 
-        {/* CTA */}
-        <div className="bg-[#F5F3EF] p-6 md:p-8 text-center">
-          <p className="text-lg md:text-xl font-serif text-[#2D2D2D] mb-4">
+        {/* CTA Box */}
+        <div className="bg-[#fafafa] p-10 md:p-12">
+          <h3 className="font-serif text-2xl text-[#1a1a1a] mb-4">
             Pronta para criar sua peça exclusiva?
-          </p>
-          <p className="text-sm text-[#5A5A5A] font-body mb-6 max-w-md mx-auto">
+          </h3>
+          <p className="text-[#737373] mb-8 max-w-md mx-auto">
             Fale com Jade pelo WhatsApp e envie sua ideia, data do evento,
             seu bairro/cidade e o tipo de peça que imagina.
           </p>
@@ -43,7 +48,7 @@ export default function FinalCTA() {
             href={getWhatsAppLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary"
+            className="btn btn-primary"
           >
             Falar com Jade
           </a>

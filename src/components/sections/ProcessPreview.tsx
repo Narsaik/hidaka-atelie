@@ -2,55 +2,63 @@
 
 import Link from "next/link";
 
+const steps = [
+  { number: "01", title: "Questionário", description: "Envie sua ideia, referências e data do evento" },
+  { number: "02", title: "Reunião", description: "Alinhamos design, tecidos e orçamento" },
+  { number: "03", title: "Criação", description: "Desenho exclusivo e modelagem sob medida" },
+  { number: "04", title: "Provas", description: "Ajustes até a perfeição absoluta" },
+  { number: "05", title: "Entrega", description: "Sua peça exclusiva está pronta" },
+];
+
 export default function ProcessPreview() {
   return (
-    <section className="section bg-[#F5F3EF]">
-      <div className="container-luxury max-w-3xl mx-auto">
+    <section className="section bg-[#fafafa]">
+      <div className="container">
         {/* Header */}
-        <div className="text-center mb-10">
-          <p className="font-script text-xl md:text-2xl text-[#A69B8C] mb-3">
-            Processo Sob Medida
+        <div className="text-center mb-16">
+          <p className="text-[11px] uppercase tracking-[0.3em] text-[#8b7355] font-medium mb-4">
+            Processo
           </p>
-          <h2 className="text-2xl md:text-3xl font-serif text-[#2D2D2D]">
+          <h2 className="font-serif text-3xl md:text-4xl text-[#1a1a1a]">
             Do conceito ao caimento final
           </h2>
-          <p className="text-sm text-[#5A5A5A] font-body mt-3 max-w-md mx-auto">
-            Tudo é pensado para que a peça conte a sua história
-            com precisão, arte e intenção.
+          <p className="text-[#737373] mt-4 max-w-lg mx-auto">
+            Cada etapa é conduzida com direção estética e precisão técnica.
           </p>
         </div>
 
-        {/* Process overview */}
-        <div className="bg-white p-6 md:p-8">
-          <p className="text-xs tracking-[0.2em] uppercase text-[#A69B8C] font-body mb-4">
-            O processo envolve:
-          </p>
-          <ul className="grid md:grid-cols-2 gap-3">
-            {[
-              "Direção estética",
-              "Desenvolvimento conceitual",
-              "Projeto exclusivo",
-              "Curadoria de materiais",
-              "Modelagem sob medida",
-              "Provas e ajustes",
-            ].map((item, index) => (
-              <li key={index} className="flex items-center gap-2 text-sm text-[#2D2D2D] font-body">
-                <span className="w-1.5 h-1.5 bg-[#C4B8A8] rounded-full flex-shrink-0" />
-                {item}
-              </li>
+        {/* Process Steps */}
+        <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-5 gap-4">
+            {steps.map((step, index) => (
+              <div key={step.number} className="relative text-center">
+                {/* Connector Line */}
+                {index < steps.length - 1 && (
+                  <div className="hidden md:block absolute top-6 left-1/2 w-full h-px bg-[#e5e5e5]" />
+                )}
+
+                {/* Step Circle */}
+                <div className="relative z-10 w-12 h-12 mx-auto bg-white border border-[#e5e5e5] rounded-full flex items-center justify-center mb-4">
+                  <span className="text-xs font-medium text-[#8b7355]">{step.number}</span>
+                </div>
+
+                {/* Content */}
+                <h3 className="font-serif text-base text-[#1a1a1a] mb-1">{step.title}</h3>
+                <p className="text-xs text-[#737373] leading-relaxed">{step.description}</p>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
 
-        {/* Link to full process */}
-        <div className="text-center mt-8">
+        {/* CTA */}
+        <div className="text-center mt-12">
           <Link
             href="/processo"
-            className="inline-flex items-center gap-2 text-xs tracking-[0.15em] uppercase text-[#2D2D2D] hover:text-[#A69B8C] transition-colors font-body"
+            className="inline-flex items-center gap-2 text-sm text-[#1a1a1a] hover:text-[#8b7355] transition-colors"
           >
-            Ver Processo Completo
+            Ver processo completo
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </Link>
         </div>

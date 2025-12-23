@@ -2,119 +2,112 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { NAV_LINKS, SITE_CONFIG, getWhatsAppLink } from "@/lib/constants";
+import { usePathname } from "next/navigation";
+
+const navLinks = [
+  { href: "/", label: "Início" },
+  { href: "/sobre", label: "Sobre" },
+  { href: "/servico", label: "Serviço" },
+  { href: "/processo", label: "Processo" },
+  { href: "/portfolio", label: "Portfólio" },
+  { href: "/contato", label: "Contato" },
+];
 
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-[#F5F3EF]/95 backdrop-blur-md shadow-sm py-4"
-          : "bg-transparent py-6"
+        scrolled ? "bg-white/95 backdrop-blur-sm shadow-sm" : "bg-transparent"
       }`}
     >
-      <div className="container-luxury flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="relative z-50">
-          <h1
-            className={`text-2xl md:text-3xl tracking-[0.3em] font-serif font-normal transition-colors ${
-              isScrolled || isMobileMenuOpen ? "text-[#2D2D2D]" : "text-[#2D2D2D]"
-            }`}
-          >
+      <div className="container">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo */}
+          <Link href="/" className="font-serif text-xl tracking-[0.15em] text-[#1a1a1a]">
             HIDAKA
-          </h1>
-        </Link>
+          </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-8">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm tracking-[0.15em] uppercase text-[#2D2D2D] hover:text-[#A69B8C] transition-colors font-body"
-            >
-              {link.label}
-            </Link>
-          ))}
-          <a
-            href={getWhatsAppLink()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary ml-4"
-          >
-            Agendar
-          </a>
-        </nav>
-
-        {/* Mobile Menu Button */}
-        <button
-          className="lg:hidden relative z-50 w-8 h-8 flex flex-col items-center justify-center gap-1.5"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Menu"
-        >
-          <span
-            className={`w-6 h-0.5 bg-[#2D2D2D] transition-all duration-300 ${
-              isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
-            }`}
-          />
-          <span
-            className={`w-6 h-0.5 bg-[#2D2D2D] transition-all duration-300 ${
-              isMobileMenuOpen ? "opacity-0" : ""
-            }`}
-          />
-          <span
-            className={`w-6 h-0.5 bg-[#2D2D2D] transition-all duration-300 ${
-              isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-            }`}
-          />
-        </button>
-
-        {/* Mobile Menu */}
-        <div
-          className={`fixed inset-0 bg-[#F5F3EF] z-40 lg:hidden transition-all duration-500 ${
-            isMobileMenuOpen
-              ? "opacity-100 pointer-events-auto"
-              : "opacity-0 pointer-events-none"
-          }`}
-        >
-          <nav className="flex flex-col items-center justify-center h-full gap-8">
-            {NAV_LINKS.map((link, index) => (
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`text-2xl tracking-[0.2em] uppercase text-[#2D2D2D] hover:text-[#A69B8C] transition-all font-serif ${
-                  isMobileMenuOpen
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-4"
+                className={`text-sm transition-colors ${
+                  pathname === link.href
+                    ? "text-[#8b7355]"
+                    : "text-[#4a4a4a] hover:text-[#1a1a1a]"
                 }`}
-                style={{ transitionDelay: `${index * 50}ms` }}
               >
                 {link.label}
               </Link>
             ))}
-            <a
-              href={getWhatsAppLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary mt-4"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Agendar Experiência
-            </a>
           </nav>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 -mr-2"
+            aria-label="Toggle menu"
+          >
+            <div className="w-5 h-4 relative flex flex-col justify-between">
+              <span
+                className={`block w-full h-px bg-[#1a1a1a] transition-all duration-300 origin-center ${
+                  isOpen ? "rotate-45 translate-y-[7px]" : ""
+                }`}
+              />
+              <span
+                className={`block w-full h-px bg-[#1a1a1a] transition-opacity duration-300 ${
+                  isOpen ? "opacity-0" : ""
+                }`}
+              />
+              <span
+                className={`block w-full h-px bg-[#1a1a1a] transition-all duration-300 origin-center ${
+                  isOpen ? "-rotate-45 -translate-y-[7px]" : ""
+                }`}
+              />
+            </div>
+          </button>
         </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <div
+        className={`md:hidden bg-white border-t border-[#e5e5e5] transition-all duration-300 overflow-hidden ${
+          isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <nav className="container py-6 flex flex-col gap-1">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`text-base py-3 border-b border-[#f5f5f5] last:border-0 ${
+                pathname === link.href
+                  ? "text-[#8b7355]"
+                  : "text-[#4a4a4a]"
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
       </div>
     </header>
   );

@@ -1,62 +1,64 @@
 "use client";
 
+import Link from "next/link";
 import { getWhatsAppLink } from "@/lib/constants";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#E8E4DD] via-[#F5F3EF] to-[#F5F3EF]" />
+    <section className="relative min-h-[100svh] flex items-center justify-center bg-[#fafafa]">
+      {/* Background Pattern - subtle */}
+      <div className="absolute inset-0 opacity-[0.02]" style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+      }} />
 
-      {/* Content */}
-      <div className="relative z-10 container-luxury text-center px-6 py-20">
-        {/* Brand */}
-        <div className="animate-fade-in">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl tracking-[0.3em] font-serif text-[#2D2D2D] mb-4">
-            HIDAKA
-          </h1>
-          <p className="font-script text-xl md:text-2xl lg:text-3xl text-[#A69B8C]">
-            Haute Couture Concierge
-          </p>
-        </div>
+      <div className="container relative z-10 text-center py-32">
+        {/* Overline */}
+        <p className="text-[11px] uppercase tracking-[0.3em] text-[#8b7355] font-medium mb-8 animate-fade-in">
+          Haute Couture Concierge
+        </p>
+
+        {/* Main Title */}
+        <h1 className="font-serif text-[clamp(2.5rem,8vw,5rem)] leading-[1.1] tracking-[-0.02em] text-[#1a1a1a] mb-6 animate-fade-in delay-100">
+          HIDAKA
+        </h1>
+
+        {/* Subtitle */}
+        <p className="font-serif text-[clamp(1.125rem,3vw,1.5rem)] text-[#4a4a4a] max-w-2xl mx-auto mb-4 animate-fade-in delay-200">
+          Estúdio de criação sob medida que transforma
+          <br className="hidden md:block" />
+          peças em projetos autorais.
+        </p>
 
         {/* Divider */}
-        <div className="divider divider-center animate-fade-in delay-200 my-8" />
+        <div className="w-12 h-px bg-[#8b7355] mx-auto my-10 animate-fade-in delay-200" />
 
         {/* Description */}
-        <div className="animate-fade-in delay-300 max-w-2xl mx-auto">
-          <p className="text-base md:text-lg font-serif text-[#2D2D2D] leading-relaxed mb-4">
-            Estúdio de criação sob medida que transforma peças em projetos autorais.
-          </p>
-          <p className="text-sm md:text-base text-[#5A5A5A] font-body leading-relaxed max-w-xl mx-auto mb-8">
-            Cada peça nasce do zero, feita exclusivamente para você, com atenção absoluta
-            aos detalhes e respeito ao seu tempo, sua história e sua identidade.
-          </p>
-        </div>
+        <p className="text-[#737373] text-base md:text-lg max-w-xl mx-auto mb-12 leading-relaxed animate-fade-in delay-300">
+          Alta-costura personalizada no conforto da sua casa.
+          Cada peça nasce do zero, feita exclusivamente para você.
+        </p>
 
-        {/* CTA */}
-        <div className="animate-fade-in delay-400 flex flex-col sm:flex-row gap-3 justify-center">
+        {/* CTAs */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in delay-400">
           <a
             href={getWhatsAppLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary"
+            className="btn btn-primary"
           >
-            Falar com Jade
+            Agendar Consulta
           </a>
-          <a href="/servico" className="btn-secondary">
+          <Link href="/servico" className="btn btn-secondary">
             Conhecer o Serviço
-          </a>
+          </Link>
         </div>
+      </div>
 
-        {/* Scroll indicator */}
-        <div className="animate-fade-in delay-500 mt-12">
-          <div className="flex flex-col items-center text-[#A69B8C]">
-            <span className="text-xs tracking-[0.2em] uppercase font-body mb-3">
-              Descubra
-            </span>
-            <div className="w-px h-8 bg-[#C4B8A8]" />
-          </div>
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in delay-400">
+        <div className="flex flex-col items-center gap-2 text-[#a3a3a3]">
+          <span className="text-[10px] uppercase tracking-[0.2em]">Scroll</span>
+          <div className="w-px h-8 bg-gradient-to-b from-[#a3a3a3] to-transparent" />
         </div>
       </div>
     </section>

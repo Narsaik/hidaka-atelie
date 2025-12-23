@@ -10,47 +10,44 @@ export default function ServicoPage() {
   return (
     <>
       {/* Hero */}
-      <section className="pt-28 pb-12 md:pt-32 md:pb-16 bg-[#F5F3EF]">
-        <div className="container-luxury text-center max-w-2xl mx-auto">
-          <p className="font-script text-xl md:text-2xl text-[#A69B8C] mb-3">
-            Haute Couture Concierge
+      <section className="pt-32 pb-16 md:pt-40 md:pb-20 bg-[#fafafa]">
+        <div className="container max-w-3xl mx-auto text-center">
+          <p className="text-[11px] uppercase tracking-[0.3em] text-[#8b7355] font-medium mb-6">
+            Serviço
           </p>
-          <h1 className="text-3xl md:text-4xl font-serif text-[#2D2D2D] mb-4">
-            O que é o serviço?
+          <h1 className="font-serif text-4xl md:text-5xl text-[#1a1a1a] tracking-[-0.02em]">
+            Haute Couture Concierge
           </h1>
-          <div className="divider divider-center" />
+          <p className="text-[#737373] mt-6 max-w-xl mx-auto leading-relaxed">
+            Um serviço criado para mulheres que desejam viver a experiência da
+            alta-costura de forma íntima, confortável e completamente personalizada.
+          </p>
         </div>
       </section>
 
       {/* What is it */}
       <section className="section bg-white">
-        <div className="container-luxury max-w-2xl mx-auto">
-          <div className="space-y-4 text-sm md:text-base text-[#5A5A5A] font-body leading-relaxed">
-            <p>
-              O <strong className="text-[#2D2D2D]">Haute Couture Concierge</strong> é
-              um serviço criado para mulheres que desejam viver a experiência da
-              alta-costura de forma íntima, confortável e completamente personalizada.
-            </p>
-            <p>
-              Em vez de você ir até um ateliê, <strong className="text-[#2D2D2D]">eu levo o ateliê até você</strong>.
+        <div className="container max-w-2xl mx-auto">
+          <div className="space-y-5 text-[#4a4a4a] leading-relaxed">
+            <p className="text-lg text-[#1a1a1a] font-medium">
+              Em vez de você ir até um ateliê, eu levo o ateliê até você.
             </p>
             <p>
               No conforto da sua casa, você recebe:
             </p>
           </div>
 
-          {/* Home visit includes */}
-          <ul className="mt-6 space-y-2">
+          <ul className="mt-8 space-y-4">
             {[
-              "Uma curadoria exclusiva de tecidos premium",
+              "Curadoria exclusiva de tecidos premium",
               "Análise de estilo e biotipo",
               "Criação do seu design personalizado",
               "Provas técnicas e ajustes",
               "Acompanhamento individual em cada etapa",
             ].map((item, index) => (
-              <li key={index} className="flex items-start gap-2 text-sm text-[#2D2D2D] font-body">
-                <svg className="w-4 h-4 text-[#C4B8A8] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              <li key={index} className="flex items-start gap-3 text-[#1a1a1a]">
+                <svg className="w-5 h-5 text-[#8b7355] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
                 {item}
               </li>
@@ -60,45 +57,49 @@ export default function ServicoPage() {
       </section>
 
       {/* What's included */}
-      <section className="section bg-[#F5F3EF]">
-        <div className="container-luxury max-w-3xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-serif text-[#2D2D2D]">
+      <section className="section bg-[#fafafa]">
+        <div className="container max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-[11px] uppercase tracking-[0.3em] text-[#8b7355] font-medium mb-4">
+              Incluso
+            </p>
+            <h2 className="font-serif text-3xl md:text-4xl text-[#1a1a1a]">
               O que está incluído?
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-3">
+          <div className="grid md:grid-cols-2 gap-4">
             {WHATS_INCLUDED.map((item, index) => (
-              <div key={index} className="flex items-start gap-3 p-4 bg-white">
-                <span className="w-6 h-6 rounded-full bg-[#C4B8A8] flex items-center justify-center flex-shrink-0">
-                  <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
+              <div key={index} className="flex items-start gap-4 p-6 bg-white">
+                <span className="w-8 h-8 bg-[#1a1a1a] text-white flex items-center justify-center flex-shrink-0 text-xs">
+                  {String(index + 1).padStart(2, "0")}
                 </span>
-                <p className="text-sm text-[#2D2D2D] font-body">{item}</p>
+                <p className="text-[#1a1a1a] text-sm">{item}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Na prática */}
+      {/* Services */}
       <section className="section bg-white">
-        <div className="container-luxury max-w-3xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-serif text-[#2D2D2D]">
-              Na prática, o que você recebe:
+        <div className="container max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-[11px] uppercase tracking-[0.3em] text-[#8b7355] font-medium mb-4">
+              Na Prática
+            </p>
+            <h2 className="font-serif text-3xl md:text-4xl text-[#1a1a1a]">
+              O que você recebe
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-3 gap-6">
             {SERVICES.map((service, index) => (
-              <div key={index} className="p-5 border border-[#E8E4DD]">
-                <span className="text-lg font-serif text-[#C4B8A8]">
+              <div key={index} className="p-6 border border-[#e5e5e5] hover:border-[#8b7355] transition-colors">
+                <span className="text-[11px] uppercase tracking-[0.2em] text-[#8b7355] font-medium">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <p className="text-sm text-[#2D2D2D] font-body mt-2">{service}</p>
+                <p className="text-[#1a1a1a] mt-4 text-sm leading-relaxed">{service}</p>
               </div>
             ))}
           </div>
@@ -106,15 +107,18 @@ export default function ServicoPage() {
       </section>
 
       {/* For whom */}
-      <section className="py-12 md:py-16 bg-[#2D2D2D] text-[#F5F3EF]">
-        <div className="container-luxury max-w-2xl mx-auto text-center px-6">
-          <h2 className="text-xl md:text-2xl font-serif text-[#F5F3EF] mb-6">
+      <section className="py-20 md:py-24 bg-[#1a1a1a]">
+        <div className="container max-w-2xl mx-auto text-center">
+          <p className="text-[11px] uppercase tracking-[0.3em] text-[#8b7355] font-medium mb-6">
+            Para Quem
+          </p>
+          <h2 className="font-serif text-2xl md:text-3xl text-white mb-8">
             Para quem é esse serviço?
           </h2>
 
-          <ul className="space-y-2">
+          <ul className="space-y-3">
             {TARGET_AUDIENCE.map((item, index) => (
-              <li key={index} className="text-sm text-[#C4B8A8] font-body">
+              <li key={index} className="text-[#a3a3a3]">
                 {item}
               </li>
             ))}
@@ -123,25 +127,28 @@ export default function ServicoPage() {
       </section>
 
       {/* Pricing */}
-      <section className="section bg-[#F5F3EF]">
-        <div className="container-luxury max-w-2xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl font-serif text-[#2D2D2D] mb-4">
+      <section className="section bg-[#fafafa]">
+        <div className="container max-w-2xl mx-auto text-center">
+          <p className="text-[11px] uppercase tracking-[0.3em] text-[#8b7355] font-medium mb-4">
+            Investimento
+          </p>
+          <h2 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-6">
             Como funcionam os valores?
           </h2>
 
-          <p className="text-sm text-[#5A5A5A] font-body mb-6">
+          <p className="text-[#737373] mb-8">
             Os valores variam conforme:
           </p>
 
-          <div className="flex flex-wrap justify-center gap-2 mb-6">
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
             {PRICING_FACTORS.map((factor, index) => (
-              <span key={index} className="px-4 py-2 bg-white text-[#2D2D2D] text-xs font-body">
+              <span key={index} className="px-5 py-2.5 bg-white text-[#1a1a1a] text-sm border border-[#e5e5e5]">
                 {factor}
               </span>
             ))}
           </div>
 
-          <p className="text-sm text-[#5A5A5A] font-body">
+          <p className="text-[#737373] text-sm">
             Eu sempre preparo um orçamento claro e personalizado
             após entender o que você deseja.
           </p>
@@ -149,12 +156,12 @@ export default function ServicoPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-12 md:py-16 bg-white">
-        <div className="container-luxury max-w-2xl mx-auto text-center px-6">
-          <p className="text-lg md:text-xl font-serif text-[#2D2D2D] mb-4">
+      <section className="py-20 md:py-24 bg-white">
+        <div className="container max-w-2xl mx-auto text-center">
+          <h2 className="font-serif text-2xl md:text-3xl text-[#1a1a1a] mb-4">
             Pronta para viver essa experiência?
-          </p>
-          <p className="text-sm text-[#5A5A5A] font-body mb-6">
+          </h2>
+          <p className="text-[#737373] mb-8 max-w-md mx-auto">
             Fale com Jade pelo WhatsApp e envie sua ideia, data do evento,
             seu bairro/cidade e o tipo de peça que imagina.
           </p>
@@ -162,7 +169,7 @@ export default function ServicoPage() {
             href={getWhatsAppLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary"
+            className="btn btn-primary"
           >
             Falar com Jade
           </a>

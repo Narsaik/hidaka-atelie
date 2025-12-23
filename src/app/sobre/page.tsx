@@ -10,32 +10,34 @@ export default function SobrePage() {
   return (
     <>
       {/* Hero */}
-      <section className="pt-28 pb-12 md:pt-32 md:pb-16 bg-[#F5F3EF]">
-        <div className="container-luxury text-center max-w-2xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-serif text-[#2D2D2D] tracking-[0.15em] mb-3">
-            HIDAKA
-          </h1>
-          <p className="font-script text-xl md:text-2xl text-[#A69B8C]">
-            Ateliê
+      <section className="pt-32 pb-16 md:pt-40 md:pb-20 bg-[#fafafa]">
+        <div className="container max-w-3xl mx-auto text-center">
+          <p className="text-[11px] uppercase tracking-[0.3em] text-[#8b7355] font-medium mb-6">
+            Sobre
           </p>
-          <div className="divider divider-center mt-6" />
+          <h1 className="font-serif text-4xl md:text-5xl text-[#1a1a1a] tracking-[-0.02em]">
+            HIDAKA Ateliê
+          </h1>
+          <p className="text-[#737373] mt-6 max-w-xl mx-auto leading-relaxed">
+            Estúdio de criação sob medida que transforma peças em projetos autorais.
+          </p>
         </div>
       </section>
 
-      {/* About */}
+      {/* About Content */}
       <section className="section bg-white">
-        <div className="container-luxury max-w-2xl mx-auto">
-          <div className="space-y-5 text-sm md:text-base text-[#5A5A5A] font-body leading-relaxed">
+        <div className="container max-w-2xl mx-auto">
+          <div className="space-y-6 text-[#4a4a4a] leading-relaxed">
             <p>
-              <strong className="text-[#2D2D2D]">HIDAKA</strong> é um estúdio de criação
+              <strong className="text-[#1a1a1a]">HIDAKA</strong> é um estúdio de criação
               sob medida que transforma peças em projetos autorais.
             </p>
             <p>
-              Minha assinatura, chamada <strong className="text-[#2D2D2D]">Haute Couture Concierge</strong>,
+              Minha assinatura, chamada <strong className="text-[#1a1a1a]">Haute Couture Concierge</strong>,
               é um serviço personalizado onde cada etapa — conceito, desenho, curadoria de materiais,
               modelagem e provas — é conduzida com direção estética e precisão técnica.
             </p>
-            <p>
+            <p className="text-[#1a1a1a] font-medium">
               Aqui, nada é produzido em série.
             </p>
             <p>
@@ -50,68 +52,74 @@ export default function SobrePage() {
         </div>
       </section>
 
-      {/* Philosophy */}
-      <section className="py-12 md:py-16 bg-[#2D2D2D] text-[#F5F3EF]">
-        <div className="container-luxury max-w-2xl mx-auto text-center px-6">
-          <p className="text-base md:text-lg lg:text-xl font-serif text-[#F5F3EF] leading-relaxed">
-            HIDAKA é para quem busca exclusividade real, narrativa estética própria
-            e peças construídas com intenção, rigor e autenticidade.
+      {/* Philosophy Quote */}
+      <section className="py-20 md:py-24 bg-[#1a1a1a]">
+        <div className="container max-w-3xl mx-auto text-center">
+          <p className="font-serif text-xl md:text-2xl text-white leading-relaxed">
+            "HIDAKA é para quem busca exclusividade real, narrativa estética própria
+            e peças construídas com intenção, rigor e autenticidade."
           </p>
         </div>
       </section>
 
       {/* Pillars */}
-      <section className="section bg-[#F5F3EF]">
-        <div className="container-luxury max-w-3xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-serif text-[#2D2D2D]">
+      <section className="section bg-[#fafafa]">
+        <div className="container max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-[11px] uppercase tracking-[0.3em] text-[#8b7355] font-medium mb-4">
+              Fundamentos
+            </p>
+            <h2 className="font-serif text-3xl md:text-4xl text-[#1a1a1a]">
               Os Pilares
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-3 gap-6">
             {/* Pillar 1 */}
-            <div className="bg-white p-6">
-              <span className="text-2xl font-serif text-[#C4B8A8]">01</span>
-              <h3 className="text-base font-serif text-[#2D2D2D] mt-3 mb-3">
+            <div className="bg-white p-8">
+              <span className="text-[11px] uppercase tracking-[0.2em] text-[#8b7355] font-medium">
+                01
+              </span>
+              <h3 className="font-serif text-xl text-[#1a1a1a] mt-4 mb-4">
                 A Artista
               </h3>
-              <ul className="space-y-1.5 text-[#5A5A5A] font-body text-xs">
-                <li>Como eu desenho</li>
-                <li>Como eu crio</li>
-                <li>Minhas referências</li>
-                <li>Meus processos</li>
-                <li>Making of dos vestidos</li>
-                <li>Minha visão estética</li>
+              <ul className="space-y-2 text-[#737373] text-sm">
+                <li>Processo criativo autoral</li>
+                <li>Referências contemporâneas</li>
+                <li>Visão estética definida</li>
+                <li>Making of detalhado</li>
               </ul>
             </div>
 
             {/* Pillar 2 */}
-            <div className="bg-white p-6">
-              <span className="text-2xl font-serif text-[#C4B8A8]">02</span>
-              <h3 className="text-base font-serif text-[#2D2D2D] mt-3 mb-3">
+            <div className="bg-white p-8">
+              <span className="text-[11px] uppercase tracking-[0.2em] text-[#8b7355] font-medium">
+                02
+              </span>
+              <h3 className="font-serif text-xl text-[#1a1a1a] mt-4 mb-4">
                 A Empreendedora
               </h3>
-              <ul className="space-y-1.5 text-[#5A5A5A] font-body text-xs">
-                <li>Como estou montando minha estrutura</li>
-                <li>Sob medida na casa das pessoas</li>
-                <li>Serviço premium vs comum</li>
-                <li>Minha rotina e bastidores</li>
-                <li>Minhas decisões</li>
+              <ul className="space-y-2 text-[#737373] text-sm">
+                <li>Estrutura profissional</li>
+                <li>Serviço premium diferenciado</li>
+                <li>Atendimento personalizado</li>
+                <li>Processos refinados</li>
               </ul>
             </div>
 
             {/* Pillar 3 */}
-            <div className="bg-white p-6">
-              <span className="text-2xl font-serif text-[#C4B8A8]">03</span>
-              <h3 className="text-base font-serif text-[#2D2D2D] mt-3 mb-3">
+            <div className="bg-white p-8">
+              <span className="text-[11px] uppercase tracking-[0.2em] text-[#8b7355] font-medium">
+                03
+              </span>
+              <h3 className="font-serif text-xl text-[#1a1a1a] mt-4 mb-4">
                 A Personalidade
               </h3>
-              <ul className="space-y-1.5 text-[#5A5A5A] font-body text-xs">
-                <li>Meu humor</li>
-                <li>Minha forma natural de falar</li>
-                <li>Meus surtos engraçados</li>
-                <li>Meu jeitinho caótico e genial</li>
+              <ul className="space-y-2 text-[#737373] text-sm">
+                <li>Autenticidade genuína</li>
+                <li>Comunicação direta</li>
+                <li>Criatividade intuitiva</li>
+                <li>Conexão verdadeira</li>
               </ul>
             </div>
           </div>
@@ -119,19 +127,19 @@ export default function SobrePage() {
       </section>
 
       {/* CTA */}
-      <section className="py-12 md:py-16 bg-white">
-        <div className="container-luxury max-w-2xl mx-auto text-center px-6">
-          <p className="text-lg md:text-xl font-serif text-[#2D2D2D] mb-4">
+      <section className="py-20 md:py-24 bg-white">
+        <div className="container max-w-2xl mx-auto text-center">
+          <h2 className="font-serif text-2xl md:text-3xl text-[#1a1a1a] mb-4">
             Vamos criar juntas?
-          </p>
-          <p className="text-sm text-[#5A5A5A] font-body mb-6">
+          </h2>
+          <p className="text-[#737373] mb-8">
             Cada peça começa com uma conversa.
           </p>
           <a
             href={getWhatsAppLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary"
+            className="btn btn-primary"
           >
             Falar com Jade
           </a>

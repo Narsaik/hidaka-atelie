@@ -10,38 +10,40 @@ export default function ProcessoPage() {
   return (
     <>
       {/* Hero */}
-      <section className="pt-28 pb-12 md:pt-32 md:pb-16 bg-[#F5F3EF]">
-        <div className="container-luxury text-center max-w-2xl mx-auto">
-          <p className="font-script text-xl md:text-2xl text-[#A69B8C] mb-3">
-            Processo Sob Medida
+      <section className="pt-32 pb-16 md:pt-40 md:pb-20 bg-[#fafafa]">
+        <div className="container max-w-3xl mx-auto text-center">
+          <p className="text-[11px] uppercase tracking-[0.3em] text-[#8b7355] font-medium mb-6">
+            Processo
           </p>
-          <h1 className="text-3xl md:text-4xl font-serif text-[#2D2D2D] mb-4">
+          <h1 className="font-serif text-4xl md:text-5xl text-[#1a1a1a] tracking-[-0.02em]">
             Como funciona a experiência?
           </h1>
-          <div className="divider divider-center" />
+          <p className="text-[#737373] mt-6 max-w-xl mx-auto leading-relaxed">
+            Do conceito ao caimento final, cada etapa é conduzida com
+            direção estética e precisão técnica.
+          </p>
         </div>
       </section>
 
-      {/* Process steps */}
+      {/* Process Steps */}
       <section className="section bg-white">
-        <div className="container-luxury max-w-2xl mx-auto">
+        <div className="container max-w-3xl mx-auto">
           {PROCESS_STEPS.map((step, index) => (
             <div
               key={index}
-              className="mb-10 last:mb-0 pb-10 last:pb-0 border-b last:border-b-0 border-[#E8E4DD]"
+              className="mb-12 last:mb-0 pb-12 last:pb-0 border-b last:border-b-0 border-[#e5e5e5]"
             >
-              <div className="flex items-start gap-4">
-                <span className="text-3xl font-serif text-[#C4B8A8] leading-none">
-                  {step.number}
-                </span>
-                <div className="flex-1 pt-1">
-                  <p className="text-[10px] tracking-[0.2em] uppercase text-[#A69B8C] font-body mb-1">
-                    Passo {step.number}
-                  </p>
-                  <h2 className="text-lg md:text-xl font-serif text-[#2D2D2D] mb-2">
+              <div className="flex items-start gap-6">
+                <div className="w-16 h-16 bg-[#fafafa] border border-[#e5e5e5] flex items-center justify-center flex-shrink-0">
+                  <span className="text-lg font-medium text-[#8b7355]">
+                    {step.number}
+                  </span>
+                </div>
+                <div className="flex-1 pt-2">
+                  <h2 className="font-serif text-xl md:text-2xl text-[#1a1a1a] mb-3">
                     {step.title}
                   </h2>
-                  <p className="text-sm text-[#5A5A5A] font-body leading-relaxed">
+                  <p className="text-[#737373] leading-relaxed">
                     {step.description}
                   </p>
                 </div>
@@ -52,41 +54,43 @@ export default function ProcessoPage() {
       </section>
 
       {/* Timeline */}
-      <section className="py-12 md:py-16 bg-[#2D2D2D] text-[#F5F3EF]">
-        <div className="container-luxury max-w-2xl mx-auto text-center px-6">
-          <h2 className="text-xl md:text-2xl font-serif text-[#F5F3EF] mb-4">
+      <section className="py-20 md:py-24 bg-[#1a1a1a]">
+        <div className="container max-w-3xl mx-auto text-center">
+          <p className="text-[11px] uppercase tracking-[0.3em] text-[#8b7355] font-medium mb-6">
+            Cronograma
+          </p>
+          <h2 className="font-serif text-2xl md:text-3xl text-white mb-4">
             Quanto tempo leva?
           </h2>
-
-          <p className="text-sm text-[#C4B8A8] font-body mb-8">
+          <p className="text-[#a3a3a3] mb-12">
             Depende da complexidade da peça, mas em geral:
           </p>
 
-          <div className="grid grid-cols-3 gap-3 mb-8">
-            <div className="p-4 border border-[#3D3D3D]">
-              <span className="text-xl font-serif text-[#C4B8A8]">1ª</span>
-              <p className="text-sm font-serif text-[#F5F3EF] mt-2">Visita</p>
-              <p className="text-xs text-[#A69B8C] font-body mt-1">
+          <div className="grid grid-cols-3 gap-4 mb-10">
+            <div className="p-6 border border-[#333]">
+              <span className="font-serif text-2xl text-[#8b7355]">1ª</span>
+              <p className="font-serif text-white mt-3">Visita</p>
+              <p className="text-[#737373] text-sm mt-2">
                 Criação + Medidas
               </p>
             </div>
-            <div className="p-4 border border-[#3D3D3D]">
-              <span className="text-xl font-serif text-[#C4B8A8]">2ª</span>
-              <p className="text-sm font-serif text-[#F5F3EF] mt-2">Visita</p>
-              <p className="text-xs text-[#A69B8C] font-body mt-1">
+            <div className="p-6 border border-[#333]">
+              <span className="font-serif text-2xl text-[#8b7355]">2ª</span>
+              <p className="font-serif text-white mt-3">Visita</p>
+              <p className="text-[#737373] text-sm mt-2">
                 Prova da peça piloto
               </p>
             </div>
-            <div className="p-4 border border-[#3D3D3D]">
-              <span className="text-xl font-serif text-[#C4B8A8]">+</span>
-              <p className="text-sm font-serif text-[#F5F3EF] mt-2">Provas</p>
-              <p className="text-xs text-[#A69B8C] font-body mt-1">
+            <div className="p-6 border border-[#333]">
+              <span className="font-serif text-2xl text-[#8b7355]">+</span>
+              <p className="font-serif text-white mt-3">Provas</p>
+              <p className="text-[#737373] text-sm mt-2">
                 Conforme necessário
               </p>
             </div>
           </div>
 
-          <p className="text-xs text-[#A69B8C] font-body">
+          <p className="text-[#737373] text-sm">
             A quantidade de visitas depende de como evolui de acordo com as provas.
             E por último, a entrega final.
           </p>
@@ -94,21 +98,24 @@ export default function ProcessoPage() {
       </section>
 
       {/* FAQ */}
-      <section className="section bg-[#F5F3EF]">
-        <div className="container-luxury max-w-2xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-serif text-[#2D2D2D]">
+      <section className="section bg-[#fafafa]">
+        <div className="container max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-[11px] uppercase tracking-[0.3em] text-[#8b7355] font-medium mb-4">
+              FAQ
+            </p>
+            <h2 className="font-serif text-3xl md:text-4xl text-[#1a1a1a]">
               Dúvidas Frequentes
             </h2>
           </div>
 
           <div className="space-y-4">
             {FAQ.map((item, index) => (
-              <div key={index} className="bg-white p-5">
-                <h3 className="text-base font-serif text-[#2D2D2D] mb-2">
+              <div key={index} className="bg-white p-6 md:p-8">
+                <h3 className="font-serif text-lg text-[#1a1a1a] mb-3">
                   {item.question}
                 </h3>
-                <p className="text-sm text-[#5A5A5A] font-body leading-relaxed">
+                <p className="text-[#737373] leading-relaxed">
                   {item.answer}
                 </p>
               </div>
@@ -118,19 +125,19 @@ export default function ProcessoPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-12 md:py-16 bg-white">
-        <div className="container-luxury max-w-2xl mx-auto text-center px-6">
-          <p className="text-lg md:text-xl font-serif text-[#2D2D2D] mb-4">
+      <section className="py-20 md:py-24 bg-white">
+        <div className="container max-w-2xl mx-auto text-center">
+          <h2 className="font-serif text-2xl md:text-3xl text-[#1a1a1a] mb-4">
             Pronta para começar?
-          </p>
-          <p className="text-sm text-[#5A5A5A] font-body mb-6">
+          </h2>
+          <p className="text-[#737373] mb-8">
             O primeiro passo é simples: envie uma mensagem no WhatsApp.
           </p>
           <a
             href={getWhatsAppLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary"
+            className="btn btn-primary"
           >
             Falar com Jade
           </a>

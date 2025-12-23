@@ -3,39 +3,36 @@
 export default function BrandStatement() {
   return (
     <section className="section bg-white">
-      <div className="container-luxury max-w-3xl mx-auto text-center">
+      <div className="container max-w-4xl mx-auto">
         {/* Quote */}
-        <p className="text-xl md:text-2xl lg:text-3xl font-serif text-[#2D2D2D] leading-relaxed mb-6">
-          "É muito mais que costurar um vestido: é entregar uma experiência
-          de luxo, personalizada e sem esforço para a cliente."
+        <blockquote className="text-center">
+          <p className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#1a1a1a] leading-[1.4] mb-8">
+            &ldquo;É muito mais que costurar um vestido: é entregar uma experiência
+            de luxo, personalizada e sem esforço para a cliente.&rdquo;
+          </p>
+        </blockquote>
+
+        <div className="w-12 h-px bg-[#8b7355] mx-auto mb-8" />
+
+        {/* Supporting Text */}
+        <p className="text-center text-[#737373] text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+          Processo silencioso, criterioso e contemporâneo — do primeiro traço
+          ao acabamento final — garantindo uma experiência individual, elegante e discreta.
         </p>
 
-        <div className="divider divider-center" />
-
-        {/* Description */}
-        <p className="text-[#5A5A5A] font-body leading-relaxed mt-6 max-w-xl mx-auto">
-          Trabalho com processo silencioso, criterioso e contemporâneo —
-          do primeiro traço ao acabamento final.
-        </p>
-
-        {/* Core values */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-10 pt-8 border-t border-[#E8E4DD]">
-          <div className="text-center">
-            <p className="text-lg font-serif text-[#2D2D2D]">Exclusividade</p>
-            <p className="text-xs text-[#A69B8C] font-body mt-1">Real</p>
-          </div>
-          <div className="text-center">
-            <p className="text-lg font-serif text-[#2D2D2D]">Narrativa</p>
-            <p className="text-xs text-[#A69B8C] font-body mt-1">Estética</p>
-          </div>
-          <div className="text-center">
-            <p className="text-lg font-serif text-[#2D2D2D]">Intenção</p>
-            <p className="text-xs text-[#A69B8C] font-body mt-1">& Rigor</p>
-          </div>
-          <div className="text-center">
-            <p className="text-lg font-serif text-[#2D2D2D]">Autenticidade</p>
-            <p className="text-xs text-[#A69B8C] font-body mt-1">Absoluta</p>
-          </div>
+        {/* Values */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 pt-12 border-t border-[#e5e5e5]">
+          {[
+            { title: "Exclusividade", subtitle: "Real" },
+            { title: "Narrativa", subtitle: "Estética" },
+            { title: "Intenção", subtitle: "& Rigor" },
+            { title: "Autenticidade", subtitle: "Absoluta" },
+          ].map((item, index) => (
+            <div key={index} className="text-center">
+              <p className="font-serif text-lg text-[#1a1a1a]">{item.title}</p>
+              <p className="text-sm text-[#8b7355] mt-1">{item.subtitle}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
