@@ -32,14 +32,21 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white/95 backdrop-blur-sm shadow-sm" : "bg-transparent"
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      style={{
+        backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.95)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(8px)' : 'none',
+        boxShadow: scrolled ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+      }}
     >
       <div className="container">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="font-serif text-xl tracking-[0.15em] text-[#1a1a1a]">
+          <Link
+            href="/"
+            className="font-serif text-xl"
+            style={{ color: '#1a1a1a', letterSpacing: '0.15em' }}
+          >
             HIDAKA
           </Link>
 
@@ -49,11 +56,10 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm transition-colors ${
-                  pathname === link.href
-                    ? "text-[#8b7355]"
-                    : "text-[#4a4a4a] hover:text-[#1a1a1a]"
-                }`}
+                className="text-sm transition-colors"
+                style={{
+                  color: pathname === link.href ? '#8b7355' : '#4a4a4a',
+                }}
               >
                 {link.label}
               </Link>
@@ -68,19 +74,25 @@ export default function Header() {
           >
             <div className="w-5 h-4 relative flex flex-col justify-between">
               <span
-                className={`block w-full h-px bg-[#1a1a1a] transition-all duration-300 origin-center ${
-                  isOpen ? "rotate-45 translate-y-[7px]" : ""
-                }`}
+                className="block w-full h-px transition-all duration-300 origin-center"
+                style={{
+                  backgroundColor: '#1a1a1a',
+                  transform: isOpen ? 'rotate(45deg) translateY(7px)' : 'none',
+                }}
               />
               <span
-                className={`block w-full h-px bg-[#1a1a1a] transition-opacity duration-300 ${
-                  isOpen ? "opacity-0" : ""
-                }`}
+                className="block w-full h-px transition-opacity duration-300"
+                style={{
+                  backgroundColor: '#1a1a1a',
+                  opacity: isOpen ? 0 : 1,
+                }}
               />
               <span
-                className={`block w-full h-px bg-[#1a1a1a] transition-all duration-300 origin-center ${
-                  isOpen ? "-rotate-45 -translate-y-[7px]" : ""
-                }`}
+                className="block w-full h-px transition-all duration-300 origin-center"
+                style={{
+                  backgroundColor: '#1a1a1a',
+                  transform: isOpen ? 'rotate(-45deg) translateY(-7px)' : 'none',
+                }}
               />
             </div>
           </button>
@@ -89,20 +101,24 @@ export default function Header() {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden bg-white border-t border-[#e5e5e5] transition-all duration-300 overflow-hidden ${
-          isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-        }`}
+        className="md:hidden transition-all duration-300 overflow-hidden"
+        style={{
+          backgroundColor: '#ffffff',
+          borderTop: '1px solid #e5e5e5',
+          maxHeight: isOpen ? '400px' : '0',
+          opacity: isOpen ? 1 : 0,
+        }}
       >
         <nav className="container py-6 flex flex-col gap-1">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`text-base py-3 border-b border-[#f5f5f5] last:border-0 ${
-                pathname === link.href
-                  ? "text-[#8b7355]"
-                  : "text-[#4a4a4a]"
-              }`}
+              className="text-base py-3"
+              style={{
+                color: pathname === link.href ? '#8b7355' : '#4a4a4a',
+                borderBottom: '1px solid #f5f5f5',
+              }}
             >
               {link.label}
             </Link>

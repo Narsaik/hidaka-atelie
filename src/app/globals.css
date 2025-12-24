@@ -1,35 +1,12 @@
 @import "tailwindcss";
 
 /* ============================================
-   HIDAKA ATELIÊ - Tailwind v4 Theme
+   HIDAKA ATELIÊ - Clean CSS Reset
    ============================================ */
 
-@theme {
-  /* Colors */
-  --color-primary: #1a1a1a;
-  --color-secondary: #4a4a4a;
-  --color-muted: #737373;
-  --color-light: #a3a3a3;
-  --color-border: #e5e5e5;
-  --color-surface: #fafafa;
-  --color-background: #ffffff;
-  --color-accent: #8b7355;
-  --color-accent-light: #b5a48c;
-
-  /* Font Families - Using CSS variables from Next.js fonts */
-  --font-family-serif: var(--font-serif), 'Cormorant Garamond', 'Georgia', serif;
-  --font-family-body: var(--font-body), 'Inter', system-ui, sans-serif;
-  --font-family-script: var(--font-script), 'Great Vibes', cursive;
-}
-
-/* ============================================
-   Base Styles
-   ============================================ */
-
+/* Base Reset */
 *, *::before, *::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 html {
@@ -39,37 +16,47 @@ html {
 }
 
 body {
-  font-family: var(--font-family-body);
-  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
   line-height: 1.6;
-  color: var(--color-primary);
-  background-color: var(--color-background);
+  color: #1a1a1a;
+  background-color: #ffffff;
 }
 
-/* Typography */
-.font-serif {
-  font-family: var(--font-family-serif);
+/* Headings use serif font */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif), 'Cormorant Garamond', Georgia, serif;
   font-weight: 400;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* Font utility classes */
+.font-serif {
+  font-family: var(--font-serif), 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .font-body {
-  font-family: var(--font-family-body);
+  font-family: var(--font-body), 'Inter', -apple-system, sans-serif !important;
 }
 
-.font-script {
-  font-family: var(--font-family-script);
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-family-serif);
-  font-weight: 400;
-  line-height: 1.2;
-  color: var(--color-primary);
-  letter-spacing: -0.02em;
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* ============================================
-   Layout Components
+   Container
    ============================================ */
 
 .container {
@@ -77,137 +64,90 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 @media (min-width: 768px) {
   .container {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 32px;
+    padding-right: 32px;
   }
 }
 
+/* ============================================
+   Section Spacing
+   ============================================ */
+
 .section {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding-top: 64px;
+  padding-bottom: 64px;
 }
 
 @media (min-width: 768px) {
   .section {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-top: 80px;
+    padding-bottom: 80px;
   }
 }
 
 @media (min-width: 1024px) {
   .section {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+    padding-top: 96px;
+    padding-bottom: 96px;
   }
 }
 
 /* ============================================
-   Button Styles
+   Buttons
    ============================================ */
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 1rem 2rem;
-  font-family: var(--font-family-body);
-  font-size: 0.875rem;
+  gap: 8px;
+  padding: 14px 28px;
+  font-family: var(--font-body), 'Inter', sans-serif;
+  font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.02em;
   text-decoration: none;
   border: none;
+  border-radius: 0;
   cursor: pointer;
-  transition: all 300ms ease;
+  transition: all 0.3s ease;
 }
 
 .btn-primary {
-  background-color: var(--color-primary);
-  color: var(--color-background);
+  background-color: #1a1a1a;
+  color: #ffffff;
 }
 
 .btn-primary:hover {
-  background-color: var(--color-secondary);
-  transform: translateY(-1px);
+  background-color: #333333;
+  transform: translateY(-2px);
 }
 
 .btn-secondary {
   background-color: transparent;
-  color: var(--color-primary);
-  border: 1px solid var(--color-primary);
+  color: #1a1a1a;
+  border: 1px solid #1a1a1a;
 }
 
 .btn-secondary:hover {
-  background-color: var(--color-primary);
-  color: var(--color-background);
+  background-color: #1a1a1a;
+  color: #ffffff;
 }
 
 /* ============================================
-   Utility Classes
-   ============================================ */
-
-.divider {
-  width: 48px;
-  height: 1px;
-  background-color: var(--color-accent);
-}
-
-.divider-center {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Links */
-a {
-  color: inherit;
-  text-decoration: none;
-  transition: color 150ms ease;
-}
-
-/* Focus States */
-:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-/* Selection */
-::selection {
-  background-color: var(--color-accent-light);
-  color: var(--color-primary);
-}
-
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: var(--color-surface);
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--color-border);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-light);
-}
-
-/* ============================================
-   WhatsApp Float Button
+   WhatsApp Float
    ============================================ */
 
 .whatsapp-float {
   position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
+  bottom: 24px;
+  right: 24px;
   width: 56px;
   height: 56px;
   background-color: #25D366;
@@ -216,34 +156,47 @@ a {
   align-items: center;
   justify-content: center;
   color: white;
-  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
-  transition: all 300ms ease;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+  transition: all 0.3s ease;
   z-index: 1000;
 }
 
 .whatsapp-float:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
 }
 
 /* ============================================
-   Animations
+   Focus & Selection
    ============================================ */
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+:focus-visible {
+  outline: 2px solid #8b7355;
+  outline-offset: 2px;
 }
 
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+::selection {
+  background-color: #8b7355;
+  color: #ffffff;
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.6s ease forwards;
+/* ============================================
+   Scrollbar
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.8s ease forwards;
+::-webkit-scrollbar-track {
+  background: #fafafa;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4d4d4;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a3a3a3;
 }

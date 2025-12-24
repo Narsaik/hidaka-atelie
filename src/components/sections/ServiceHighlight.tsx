@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/animations/ScrollReveal";
 
 const features = [
   {
@@ -29,62 +28,95 @@ const features = [
 
 export default function ServiceHighlight() {
   return (
-    <section className="section bg-[#1a1a1a]">
+    <section className="section" style={{ backgroundColor: '#1a1a1a' }}>
       <div className="container">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
-          <ScrollReveal className="text-center mb-12 md:mb-16">
-            <p className="text-[11px] uppercase tracking-[0.3em] text-[#8b7355] font-medium mb-4">
+          <motion.div
+            className="text-center mb-12 md:mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <p
+              className="text-xs uppercase tracking-widest font-medium mb-4"
+              style={{ color: '#8b7355', letterSpacing: '0.3em' }}
+            >
               O Diferencial
             </p>
-            <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-white leading-tight">
+            <h2
+              className="font-serif text-2xl md:text-3xl lg:text-4xl leading-tight"
+              style={{ color: '#ffffff' }}
+            >
               Em vez de você ir até um ateliê,
               <br className="hidden sm:block" />
-              <span className="text-[#b5a48c]"> eu levo o ateliê até você.</span>
+              <span style={{ color: '#b5a48c' }}> eu levo o ateliê até você.</span>
             </h2>
-          </ScrollReveal>
+          </motion.div>
 
           {/* Features Grid */}
-          <StaggerContainer className="grid md:grid-cols-2 gap-4 md:gap-6" staggerDelay={0.1}>
-            {features.map((feature) => (
-              <StaggerItem key={feature.number}>
-                <motion.div
-                  className="p-6 md:p-8 border border-[#333] hover:border-[#8b7355] transition-all duration-300 group"
-                  whileHover={{ y: -4 }}
+          <motion.div
+            className="grid md:grid-cols-2 gap-4 md:gap-6"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            {features.map((feature, index) => (
+              <motion.div
+                key={feature.number}
+                className="p-6 md:p-8 transition-all duration-300 group"
+                style={{ border: '1px solid #333333' }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 * index }}
+                whileHover={{ y: -4, borderColor: '#8b7355' }}
+              >
+                <span
+                  className="text-xs uppercase tracking-widest font-medium"
+                  style={{ color: '#8b7355', letterSpacing: '0.2em' }}
                 >
-                  <span className="text-[11px] uppercase tracking-[0.2em] text-[#8b7355] font-medium">
-                    {feature.number}
-                  </span>
-                  <h3 className="font-serif text-lg md:text-xl text-white mt-3 md:mt-4 mb-2 md:mb-3 group-hover:text-[#b5a48c] transition-colors">
-                    {feature.title}
-                  </h3>
-                  <p className="text-[#a3a3a3] text-sm leading-relaxed">
-                    {feature.description}
-                  </p>
-                </motion.div>
-              </StaggerItem>
+                  {feature.number}
+                </span>
+                <h3
+                  className="font-serif text-lg md:text-xl mt-3 md:mt-4 mb-2 md:mb-3 transition-colors"
+                  style={{ color: '#ffffff' }}
+                >
+                  {feature.title}
+                </h3>
+                <p className="text-sm leading-relaxed" style={{ color: '#a3a3a3' }}>
+                  {feature.description}
+                </p>
+              </motion.div>
             ))}
-          </StaggerContainer>
+          </motion.div>
 
           {/* CTA */}
-          <ScrollReveal className="text-center mt-10 md:mt-12" delay={0.4}>
+          <motion.div
+            className="text-center mt-10 md:mt-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
             <Link
               href="/servico"
-              className="inline-flex items-center gap-2 text-sm text-[#b5a48c] hover:text-white transition-colors group"
+              className="inline-flex items-center gap-2 text-sm transition-colors"
+              style={{ color: '#b5a48c' }}
             >
               Ver todos os serviços
-              <motion.svg
+              <svg
                 className="w-4 h-4"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                initial={{ x: 0 }}
-                whileHover={{ x: 4 }}
               >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </motion.svg>
+              </svg>
             </Link>
-          </ScrollReveal>
+          </motion.div>
         </div>
       </div>
     </section>

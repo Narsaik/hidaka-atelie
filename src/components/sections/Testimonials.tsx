@@ -4,7 +4,6 @@ import { useState, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import { TESTIMONIALS } from "@/lib/constants";
-import ScrollReveal from "@/components/animations/ScrollReveal";
 
 export default function Testimonials() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "center" });
@@ -39,17 +38,29 @@ export default function Testimonials() {
   }, [emblaApi]);
 
   return (
-    <section className="section bg-[#1a1a1a] overflow-hidden">
+    <section className="section overflow-hidden" style={{ backgroundColor: '#1a1a1a' }}>
       <div className="container">
         {/* Header */}
-        <ScrollReveal className="text-center mb-12 md:mb-16">
-          <p className="text-[11px] uppercase tracking-[0.3em] text-[#8b7355] font-medium mb-4">
+        <motion.div
+          className="text-center mb-12 md:mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <p
+            className="text-xs uppercase tracking-widest font-medium mb-4"
+            style={{ color: '#8b7355', letterSpacing: '0.3em' }}
+          >
             Depoimentos
           </p>
-          <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-white">
+          <h2
+            className="font-serif text-2xl md:text-3xl lg:text-4xl"
+            style={{ color: '#ffffff' }}
+          >
             O que nossas clientes dizem
           </h2>
-        </ScrollReveal>
+        </motion.div>
 
         {/* Carousel */}
         <div className="max-w-5xl mx-auto">
@@ -61,7 +72,8 @@ export default function Testimonials() {
                   className="flex-[0_0_100%] min-w-0 md:flex-[0_0_85%] lg:flex-[0_0_70%] px-3 md:px-4"
                 >
                   <motion.div
-                    className="bg-[#242424] p-6 md:p-10 lg:p-12 text-center"
+                    className="p-6 md:p-10 lg:p-12 text-center"
+                    style={{ backgroundColor: '#242424' }}
                     initial={{ opacity: 0.5, scale: 0.95 }}
                     animate={{
                       opacity: selectedIndex === index ? 1 : 0.5,
@@ -71,7 +83,8 @@ export default function Testimonials() {
                   >
                     {/* Quote Icon */}
                     <svg
-                      className="w-8 h-8 md:w-10 md:h-10 mx-auto mb-4 md:mb-6 text-[#8b7355] opacity-50"
+                      className="w-8 h-8 md:w-10 md:h-10 mx-auto mb-4 md:mb-6 opacity-50"
+                      style={{ color: '#8b7355' }}
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -79,16 +92,25 @@ export default function Testimonials() {
                     </svg>
 
                     {/* Quote Text */}
-                    <p className="font-serif text-base md:text-lg lg:text-xl text-white leading-relaxed mb-6 md:mb-8">
+                    <p
+                      className="font-serif text-base md:text-lg lg:text-xl leading-relaxed mb-6 md:mb-8"
+                      style={{ color: '#ffffff' }}
+                    >
                       &ldquo;{testimonial.text}&rdquo;
                     </p>
 
                     {/* Author */}
                     <div className="text-center">
-                      <p className="text-[#8b7355] font-medium text-sm md:text-base">
+                      <p
+                        className="font-medium text-sm md:text-base"
+                        style={{ color: '#8b7355' }}
+                      >
                         {testimonial.author}
                       </p>
-                      <p className="text-[#737373] text-xs md:text-sm mt-1">
+                      <p
+                        className="text-xs md:text-sm mt-1"
+                        style={{ color: '#737373' }}
+                      >
                         {testimonial.location} • {testimonial.event}
                       </p>
                     </div>
@@ -105,11 +127,11 @@ export default function Testimonials() {
             <button
               key={index}
               onClick={() => scrollTo(index)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                selectedIndex === index
-                  ? "bg-[#8b7355] w-6 md:w-8"
-                  : "bg-[#4a4a4a] hover:bg-[#737373] w-2"
-              }`}
+              className="h-2 rounded-full transition-all duration-300"
+              style={{
+                backgroundColor: selectedIndex === index ? '#8b7355' : '#4a4a4a',
+                width: selectedIndex === index ? '24px' : '8px',
+              }}
               aria-label={`Go to testimonial ${index + 1}`}
             />
           ))}
