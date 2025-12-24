@@ -1,66 +1,160 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { getWhatsAppLink } from "@/lib/constants";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[100svh] flex items-center justify-center bg-[#fafafa]">
-      {/* Background Pattern - subtle */}
-      <div className="absolute inset-0 opacity-[0.02]" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-      }} />
+    <section className="relative min-h-[100svh] flex items-center justify-center bg-[#fafafa] overflow-hidden">
+      {/* Animated Background Pattern */}
+      <motion.div
+        className="absolute inset-0 opacity-[0.02]"
+        initial={{ scale: 1.1 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }}
+      />
+
+      {/* Floating accent elements */}
+      <motion.div
+        className="absolute top-20 right-[15%] w-32 h-32 bg-[#8b7355]/5 rounded-full blur-3xl"
+        animate={{
+          y: [0, -20, 0],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute bottom-32 left-[10%] w-40 h-40 bg-[#8b7355]/5 rounded-full blur-3xl"
+        animate={{
+          y: [0, 20, 0],
+          scale: [1, 1.15, 1],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
+        }}
+      />
 
       <div className="container relative z-10 text-center py-32">
         {/* Overline */}
-        <p className="text-[11px] uppercase tracking-[0.3em] text-[#8b7355] font-medium mb-8 animate-fade-in">
+        <motion.p
+          className="text-[11px] uppercase tracking-[0.3em] text-[#8b7355] font-medium mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           Haute Couture Concierge
-        </p>
+        </motion.p>
 
-        {/* Main Title */}
-        <h1 className="font-serif text-[clamp(2.5rem,8vw,5rem)] leading-[1.1] tracking-[-0.02em] text-[#1a1a1a] mb-6 animate-fade-in delay-100">
-          HIDAKA
-        </h1>
+        {/* Main Title - letter by letter animation */}
+        <motion.h1
+          className="font-serif text-[clamp(2.5rem,8vw,5rem)] leading-[1.1] tracking-[-0.02em] text-[#1a1a1a] mb-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.1 }}
+        >
+          {"HIDAKA".split("").map((letter, index) => (
+            <motion.span
+              key={index}
+              className="inline-block"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.5,
+                delay: 0.3 + index * 0.08,
+                ease: [0.25, 0.1, 0.25, 1],
+              }}
+            >
+              {letter}
+            </motion.span>
+          ))}
+        </motion.h1>
 
         {/* Subtitle */}
-        <p className="font-serif text-[clamp(1.125rem,3vw,1.5rem)] text-[#4a4a4a] max-w-2xl mx-auto mb-4 animate-fade-in delay-200">
+        <motion.p
+          className="font-serif text-[clamp(1.125rem,3vw,1.5rem)] text-[#4a4a4a] max-w-2xl mx-auto mb-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+        >
           Estúdio de criação sob medida que transforma
           <br className="hidden md:block" />
           peças em projetos autorais.
-        </p>
+        </motion.p>
 
-        {/* Divider */}
-        <div className="w-12 h-px bg-[#8b7355] mx-auto my-10 animate-fade-in delay-200" />
+        {/* Animated Divider */}
+        <motion.div
+          className="w-12 h-px bg-[#8b7355] mx-auto my-10"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.8, delay: 1 }}
+        />
 
         {/* Description */}
-        <p className="text-[#737373] text-base md:text-lg max-w-xl mx-auto mb-12 leading-relaxed animate-fade-in delay-300">
+        <motion.p
+          className="text-[#737373] text-base md:text-lg max-w-xl mx-auto mb-12 leading-relaxed"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.1 }}
+        >
           Alta-costura personalizada no conforto da sua casa.
           Cada peça nasce do zero, feita exclusivamente para você.
-        </p>
+        </motion.p>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in delay-400">
-          <a
+        <motion.div
+          className="flex flex-col sm:flex-row gap-4 justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.3 }}
+        >
+          <motion.a
             href={getWhatsAppLink()}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary"
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.98 }}
           >
             Agendar Consulta
-          </a>
-          <Link href="/servico" className="btn btn-secondary">
-            Conhecer o Serviço
-          </Link>
-        </div>
+          </motion.a>
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <Link href="/servico" className="btn btn-secondary">
+              Conhecer o Serviço
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in delay-400">
-        <div className="flex flex-col items-center gap-2 text-[#a3a3a3]">
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 1.5 }}
+      >
+        <motion.div
+          className="flex flex-col items-center gap-2 text-[#a3a3a3]"
+          animate={{ y: [0, 5, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
           <span className="text-[10px] uppercase tracking-[0.2em]">Scroll</span>
           <div className="w-px h-8 bg-gradient-to-b from-[#a3a3a3] to-transparent" />
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

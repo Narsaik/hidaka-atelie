@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
+import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/animations/ScrollReveal";
 
 const features = [
   {
@@ -29,49 +31,60 @@ export default function ServiceHighlight() {
   return (
     <section className="section bg-[#1a1a1a]">
       <div className="container">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <p className="text-[11px] uppercase tracking-[0.3em] text-[#8b7355] font-medium mb-4">
-            O Diferencial
-          </p>
-          <h2 className="font-serif text-3xl md:text-4xl text-white leading-tight">
-            Em vez de você ir até um ateliê,
-            <br />
-            <span className="text-[#b5a48c]">eu levo o ateliê até você.</span>
-          </h2>
-        </div>
+        <div className="max-w-4xl mx-auto">
+          {/* Header */}
+          <ScrollReveal className="text-center mb-12 md:mb-16">
+            <p className="text-[11px] uppercase tracking-[0.3em] text-[#8b7355] font-medium mb-4">
+              O Diferencial
+            </p>
+            <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-white leading-tight">
+              Em vez de você ir até um ateliê,
+              <br className="hidden sm:block" />
+              <span className="text-[#b5a48c]"> eu levo o ateliê até você.</span>
+            </h2>
+          </ScrollReveal>
 
-        {/* Features Grid */}
-        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          {features.map((feature) => (
-            <div
-              key={feature.number}
-              className="p-8 border border-[#333] hover:border-[#8b7355] transition-colors duration-300"
+          {/* Features Grid */}
+          <StaggerContainer className="grid md:grid-cols-2 gap-4 md:gap-6" staggerDelay={0.1}>
+            {features.map((feature) => (
+              <StaggerItem key={feature.number}>
+                <motion.div
+                  className="p-6 md:p-8 border border-[#333] hover:border-[#8b7355] transition-all duration-300 group"
+                  whileHover={{ y: -4 }}
+                >
+                  <span className="text-[11px] uppercase tracking-[0.2em] text-[#8b7355] font-medium">
+                    {feature.number}
+                  </span>
+                  <h3 className="font-serif text-lg md:text-xl text-white mt-3 md:mt-4 mb-2 md:mb-3 group-hover:text-[#b5a48c] transition-colors">
+                    {feature.title}
+                  </h3>
+                  <p className="text-[#a3a3a3] text-sm leading-relaxed">
+                    {feature.description}
+                  </p>
+                </motion.div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+
+          {/* CTA */}
+          <ScrollReveal className="text-center mt-10 md:mt-12" delay={0.4}>
+            <Link
+              href="/servico"
+              className="inline-flex items-center gap-2 text-sm text-[#b5a48c] hover:text-white transition-colors group"
             >
-              <span className="text-[11px] uppercase tracking-[0.2em] text-[#8b7355] font-medium">
-                {feature.number}
-              </span>
-              <h3 className="font-serif text-xl text-white mt-4 mb-3">
-                {feature.title}
-              </h3>
-              <p className="text-[#a3a3a3] text-sm leading-relaxed">
-                {feature.description}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <div className="text-center mt-12">
-          <Link
-            href="/servico"
-            className="inline-flex items-center gap-2 text-sm text-[#b5a48c] hover:text-white transition-colors"
-          >
-            Ver todos os serviços
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Link>
+              Ver todos os serviços
+              <motion.svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                initial={{ x: 0 }}
+                whileHover={{ x: 4 }}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </motion.svg>
+            </Link>
+          </ScrollReveal>
         </div>
       </div>
     </section>

@@ -140,3 +140,77 @@ export const getWhatsAppLink = (customMessage?: string) => {
   const message = encodeURIComponent(customMessage || SITE_CONFIG.whatsappMessage);
   return `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${message}`;
 };
+
+// Testimonials (placeholder - will be replaced with real ones)
+export const TESTIMONIALS = [
+  {
+    id: 1,
+    text: "A experiência foi além do que imaginei. Kathlyn entendeu exatamente o que eu queria e criou uma peça que parecia ter sido feita para minha alma.",
+    author: "M.C.",
+    location: "São Paulo",
+    event: "Casamento",
+  },
+  {
+    id: 2,
+    text: "O atendimento em casa fez toda a diferença. Pude experimentar tudo com calma, no meu espaço, sem pressa. O vestido ficou perfeito.",
+    author: "L.S.",
+    location: "São Paulo",
+    event: "Festa de 15 anos da filha",
+  },
+  {
+    id: 3,
+    text: "Cada detalhe foi pensado com tanto cuidado. A Kathlyn não faz roupas, ela cria arte. Recebi elogios a noite inteira.",
+    author: "A.R.",
+    location: "Campinas",
+    event: "Formatura",
+  },
+  {
+    id: 4,
+    text: "Confidencialidade absoluta e resultado impecável. Exatamente o que eu precisava para um evento tão especial.",
+    author: "P.M.",
+    location: "São Paulo",
+    event: "Evento Corporativo",
+  },
+];
+
+// Stats for trust building
+export const STATS = {
+  piecesCreated: 50,
+  clientsSatisfied: 50,
+  yearsExperience: 5,
+  citiesServed: 8,
+};
+
+// Trust badges
+export const TRUST_BADGES = [
+  {
+    icon: "shield",
+    title: "100% Privacidade",
+    description: "Confidencialidade absoluta",
+  },
+  {
+    icon: "star",
+    title: "Atendimento Exclusivo",
+    description: "Uma cliente por vez",
+  },
+  {
+    icon: "heart",
+    title: "Feito à Mão",
+    description: "Artesanato brasileiro",
+  },
+  {
+    icon: "home",
+    title: "Conforto",
+    description: "Atendimento em domicílio",
+  },
+];
+
+// Event types for contact form
+export const EVENT_TYPES = [
+  "Casamento",
+  "Festa de 15 anos",
+  "Formatura",
+  "Evento Corporativo",
+  "Festa",
+  "Outro",
+];
