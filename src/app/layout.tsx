@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
+import SmoothScroll from "@/components/animations/SmoothScroll";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-serif",
@@ -49,10 +50,12 @@ export default function RootLayout({
       <body
         className={`${cormorant.variable} ${inter.variable} ${greatVibes.variable} antialiased`}
       >
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <WhatsAppButton />
+        <SmoothScroll>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          <WhatsAppButton />
+        </SmoothScroll>
       </body>
     </html>
   );
