@@ -1,13 +1,13 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { getWhatsAppLink } from "@/lib/constants";
 
 // Dynamic import for 3D scene to avoid SSR issues
-const NeedleScene = dynamic(() => import("@/components/3d/NeedleScene"), {
+const WeddingDressScene = dynamic(() => import("@/components/3d/WeddingDressScene"), {
   ssr: false,
   loading: () => (
     <div className="absolute inset-0 z-0" style={{ backgroundColor: "#fafafa" }} />
@@ -59,28 +59,28 @@ export default function HeroImmersive() {
         </div>
       )}
 
-      {/* 3D Needle/Haystack Background */}
-      <NeedleScene />
+      {/* 3D Wedding Dress Background */}
+      <WeddingDressScene />
 
-      {/* Gradient overlay for text readability */}
+      {/* Subtle gradient overlay for text readability */}
       <div
         className="absolute inset-0 z-10"
         style={{
           background:
-            "radial-gradient(ellipse at center, rgba(250,250,250,0.85) 0%, rgba(250,250,250,0.5) 50%, rgba(250,250,250,0.9) 100%)",
+            "linear-gradient(to right, rgba(250,250,250,0.95) 0%, rgba(250,250,250,0.4) 30%, rgba(250,250,250,0.4) 70%, rgba(250,250,250,0.95) 100%)",
           pointerEvents: "none",
         }}
       />
 
-      {/* Content */}
+      {/* Content - positioned to the left */}
       <div className="container relative z-20">
-        <div className="max-w-3xl mx-auto text-center py-24 md:py-32">
+        <div className="max-w-xl ml-0 md:ml-8 lg:ml-16 text-left py-24 md:py-32">
           {/* Overline */}
           <motion.p
             className="text-xs uppercase tracking-widest mb-6"
             style={{ color: "#8b7355", letterSpacing: "0.25em" }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={isLoaded ? { opacity: 1, y: 0 } : {}}
+            initial={{ opacity: 0, x: -20 }}
+            animate={isLoaded ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             Haute Couture Concierge
@@ -88,10 +88,10 @@ export default function HeroImmersive() {
 
           {/* Main Title */}
           <motion.h1
-            className="font-serif text-6xl md:text-7xl lg:text-8xl mb-6"
-            style={{ color: "#1a1a1a", letterSpacing: "0.15em" }}
-            initial={{ opacity: 0, y: 30 }}
-            animate={isLoaded ? { opacity: 1, y: 0 } : {}}
+            className="font-serif text-5xl md:text-6xl lg:text-7xl mb-6"
+            style={{ color: "#1a1a1a", letterSpacing: "0.1em" }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={isLoaded ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             HIDAKA
@@ -99,41 +99,41 @@ export default function HeroImmersive() {
 
           {/* Subtitle */}
           <motion.p
-            className="font-serif text-xl md:text-2xl mb-6"
+            className="font-serif text-lg md:text-xl mb-6"
             style={{ color: "#4a4a4a" }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={isLoaded ? { opacity: 1, y: 0 } : {}}
+            initial={{ opacity: 0, x: -20 }}
+            animate={isLoaded ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
             Estúdio de criação sob medida que transforma
-            <br className="hidden md:block" />
+            <br />
             peças em projetos autorais.
           </motion.p>
 
           {/* Divider */}
           <motion.div
-            className="w-16 h-px mx-auto my-8"
+            className="w-16 h-px my-8"
             style={{ backgroundColor: "#8b7355" }}
-            initial={{ scaleX: 0 }}
+            initial={{ scaleX: 0, originX: 0 }}
             animate={isLoaded ? { scaleX: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.8 }}
           />
 
           {/* Description */}
           <motion.p
-            className="text-base md:text-lg mb-10 max-w-xl mx-auto"
+            className="text-base mb-10 max-w-md"
             style={{ color: "#737373", lineHeight: 1.8 }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={isLoaded ? { opacity: 1, y: 0 } : {}}
+            initial={{ opacity: 0, x: -20 }}
+            animate={isLoaded ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 1 }}
           >
             Alta-costura personalizada no conforto da sua casa.
             Cada peça nasce do zero, feita exclusivamente para você.
           </motion.p>
 
-          {/* CTAs - Fixed without Magnetic wrapper */}
+          {/* CTAs */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col sm:flex-row gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={isLoaded ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 1.2 }}
@@ -165,7 +165,7 @@ export default function HeroImmersive() {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator - centered */}
       <motion.div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20"
         style={{ color: "#a3a3a3" }}
