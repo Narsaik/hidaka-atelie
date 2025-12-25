@@ -7,7 +7,6 @@ import ServiceHighlight from "@/components/sections/ServiceHighlight";
 import ProcessPreview from "@/components/sections/ProcessPreview";
 import Testimonials from "@/components/sections/Testimonials";
 import FinalCTA from "@/components/sections/FinalCTA";
-import { RevealOnScroll } from "@/components/animations/ParallaxSection";
 
 // Dynamic imports for heavy 3D components
 const HeroImmersive = dynamic(() => import("@/components/sections/HeroImmersive"), {
@@ -21,41 +20,29 @@ const DressDrawing = dynamic(() => import("@/components/animations/DressDrawing"
 export default function Home() {
   return (
     <>
-      {/* Immersive 3D Hero */}
+      {/* Immersive 3D Hero with Needle Animation */}
       <HeroImmersive />
 
       {/* Dress Drawing Animation Section */}
       <DressDrawing />
 
-      {/* Brand Statement with reveal */}
-      <RevealOnScroll direction="up">
-        <BrandStatement />
-      </RevealOnScroll>
+      {/* Brand Statement */}
+      <BrandStatement />
 
       {/* Trust Badges */}
-      <RevealOnScroll direction="up" delay={0.1}>
-        <TrustBadges />
-      </RevealOnScroll>
+      <TrustBadges />
 
       {/* Service Highlight */}
-      <RevealOnScroll direction="left">
-        <ServiceHighlight />
-      </RevealOnScroll>
+      <ServiceHighlight />
 
       {/* Process Preview */}
-      <RevealOnScroll direction="up">
-        <ProcessPreview />
-      </RevealOnScroll>
+      <ProcessPreview />
 
       {/* Testimonials */}
-      <RevealOnScroll direction="right">
-        <Testimonials />
-      </RevealOnScroll>
+      <Testimonials />
 
       {/* Final CTA */}
-      <RevealOnScroll direction="up">
-        <FinalCTA />
-      </RevealOnScroll>
+      <FinalCTA />
     </>
   );
 }
