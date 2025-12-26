@@ -13,9 +13,17 @@ interface FormData {
   message: string;
 }
 
+interface FormErrors {
+  name?: string;
+  email?: string;
+  phone?: string;
+  eventType?: string;
+}
+
 export default function ConsultationForm() {
   const [step, setStep] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -25,27 +33,95 @@ export default function ConsultationForm() {
     message: "",
   });
 
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePhone = (phone: string): boolean => {
+    // Brazilian phone format: accepts (XX) XXXXX-XXXX or variations
+    const phoneRegex = /^[\d\s()+-]{10,}$/;
+    return phoneRegex.test(phone.replace(/\s/g, ""));
+  };
+
+  const formatPhone = (value: string): string => {
+    // Remove non-digits
+    const digits = value.replace(/\D/g, "");
+
+    // Format as (XX) XXXXX-XXXX
+    if (digits.length <= 2) return digits;
+    if (digits.length <= 7) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+    if (digits.length <= 11) {
+      return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+    }
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7, 11)}`;
+  };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    // Format phone number as user types
+    if (name === "phone") {
+      setFormData({ ...formData, [name]: formatPhone(value) });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+
+    // Clear error when user starts typing
+    if (errors[name as keyof FormErrors]) {
+      setErrors({ ...errors, [name]: undefined });
+    }
   };
 
-  const nextStep = () => setStep(step + 1);
+  const validateStep = (stepNumber: number): boolean => {
+    const newErrors: FormErrors = {};
+
+    if (stepNumber === 1) {
+      if (formData.name.trim().length < 3) {
+        newErrors.name = "Nome deve ter pelo menos 3 caracteres";
+      }
+      if (!validateEmail(formData.email)) {
+        newErrors.email = "Digite um e-mail válido";
+      }
+    }
+
+    if (stepNumber === 2) {
+      if (!validatePhone(formData.phone)) {
+        newErrors.phone = "Digite um telefone válido";
+      }
+      if (!formData.eventType) {
+        newErrors.eventType = "Selecione o tipo de evento";
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const nextStep = () => {
+    if (validateStep(step)) {
+      setStep(step + 1);
+    }
+  };
+
   const prevStep = () => setStep(step - 1);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, you'd send this to an API
-    // For now, we'll redirect to WhatsApp with the form data
+
+    if (!validateStep(3)) return;
+
+    // Format message for WhatsApp
     const message = `Olá! Gostaria de agendar uma consulta.
 
 Nome: ${formData.name}
 Email: ${formData.email}
 Telefone: ${formData.phone}
 Tipo de evento: ${formData.eventType}
-Data do evento: ${formData.eventDate}
-Mensagem: ${formData.message}`;
+Data do evento: ${formData.eventDate || "A definir"}
+Mensagem: ${formData.message || "Sem mensagem adicional"}`;
 
     setIsSubmitted(true);
 
@@ -58,11 +134,11 @@ Mensagem: ${formData.message}`;
   const isStepValid = () => {
     switch (step) {
       case 1:
-        return formData.name.length > 2 && formData.email.includes("@");
+        return formData.name.length > 2 && validateEmail(formData.email);
       case 2:
-        return formData.phone.length > 8 && formData.eventType !== "";
+        return validatePhone(formData.phone) && formData.eventType !== "";
       case 3:
-        return true; // Optional fields
+        return true;
       default:
         return false;
     }
@@ -75,6 +151,8 @@ Mensagem: ${formData.message}`;
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
+        role="status"
+        aria-live="polite"
       >
         <motion.div
           className="w-16 h-16 mx-auto mb-6 rounded-full bg-[#8b7355] flex items-center justify-center"
@@ -82,17 +160,23 @@ Mensagem: ${formData.message}`;
           animate={{ scale: 1 }}
           transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
         >
-          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg
+            className="w-8 h-8 text-white"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </motion.div>
         <h3 className="font-serif text-2xl text-[#1a1a1a] mb-4">
           Mensagem enviada!
         </h3>
-        <p className="text-[#737373] mb-6">
+        <p className="text-[#525252] mb-6">
           Você será redirecionada para o WhatsApp para finalizar o contato com Jade.
         </p>
-        <p className="text-sm text-[#a3a3a3]">
+        <p className="text-sm text-[#737373]">
           Respondemos em até 24 horas úteis.
         </p>
       </motion.div>
@@ -102,7 +186,14 @@ Mensagem: ${formData.message}`;
   return (
     <div className="bg-white p-8 md:p-10">
       {/* Progress */}
-      <div className="flex items-center justify-center gap-2 mb-10">
+      <div
+        className="flex items-center justify-center gap-2 mb-10"
+        role="progressbar"
+        aria-valuenow={step}
+        aria-valuemin={1}
+        aria-valuemax={3}
+        aria-label={`Etapa ${step} de 3`}
+      >
         {[1, 2, 3].map((s) => (
           <div key={s} className="flex items-center">
             <div
@@ -111,11 +202,18 @@ Mensagem: ${formData.message}`;
                   ? "bg-[#8b7355] text-white"
                   : s < step
                   ? "bg-[#1a1a1a] text-white"
-                  : "bg-[#e5e5e5] text-[#737373]"
+                  : "bg-[#e5e5e5] text-[#525252]"
               }`}
+              aria-current={s === step ? "step" : undefined}
             >
               {s < step ? (
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               ) : (
@@ -127,13 +225,14 @@ Mensagem: ${formData.message}`;
                 className={`w-12 md:w-20 h-px mx-2 ${
                   s < step ? "bg-[#1a1a1a]" : "bg-[#e5e5e5]"
                 }`}
+                aria-hidden="true"
               />
             )}
           </div>
         ))}
       </div>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} noValidate>
         <AnimatePresence mode="wait">
           {step === 1 && (
             <motion.div
@@ -148,35 +247,69 @@ Mensagem: ${formData.message}`;
                 <h3 className="font-serif text-xl text-[#1a1a1a] mb-2">
                   Vamos começar
                 </h3>
-                <p className="text-sm text-[#737373]">
+                <p className="text-sm text-[#525252]">
                   Como podemos te chamar?
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm text-[#4a4a4a] mb-2">Nome completo</label>
+                <label
+                  htmlFor="name"
+                  className="block text-sm text-[#4a4a4a] mb-2"
+                >
+                  Nome completo <span className="text-red-500">*</span>
+                </label>
                 <input
                   type="text"
+                  id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-[#e5e5e5] focus:border-[#8b7355] focus:outline-none transition-colors"
+                  className={`w-full px-4 py-3 border ${
+                    errors.name ? "border-red-500" : "border-[#e5e5e5]"
+                  } focus:border-[#8b7355] focus:outline-none transition-colors`}
                   placeholder="Seu nome"
                   required
+                  aria-required="true"
+                  aria-invalid={!!errors.name}
+                  aria-describedby={errors.name ? "name-error" : undefined}
+                  autoComplete="name"
                 />
+                {errors.name && (
+                  <p id="name-error" className="text-red-500 text-sm mt-1" role="alert">
+                    {errors.name}
+                  </p>
+                )}
               </div>
 
               <div>
-                <label className="block text-sm text-[#4a4a4a] mb-2">Email</label>
+                <label
+                  htmlFor="email"
+                  className="block text-sm text-[#4a4a4a] mb-2"
+                >
+                  Email <span className="text-red-500">*</span>
+                </label>
                 <input
                   type="email"
+                  id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-[#e5e5e5] focus:border-[#8b7355] focus:outline-none transition-colors"
+                  className={`w-full px-4 py-3 border ${
+                    errors.email ? "border-red-500" : "border-[#e5e5e5]"
+                  } focus:border-[#8b7355] focus:outline-none transition-colors`}
                   placeholder="seu@email.com"
                   required
+                  aria-required="true"
+                  aria-invalid={!!errors.email}
+                  aria-describedby={errors.email ? "email-error" : undefined}
+                  autoComplete="email"
                 />
+                {errors.email && (
+                  <p id="email-error" className="text-red-500 text-sm mt-1" role="alert">
+                    {errors.email}
+                  </p>
+                )}
               </div>
             </motion.div>
           )}
@@ -194,32 +327,60 @@ Mensagem: ${formData.message}`;
                 <h3 className="font-serif text-xl text-[#1a1a1a] mb-2">
                   Sobre o evento
                 </h3>
-                <p className="text-sm text-[#737373]">
+                <p className="text-sm text-[#525252]">
                   Conte-nos mais sobre sua ocasião especial
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm text-[#4a4a4a] mb-2">Telefone / WhatsApp</label>
+                <label
+                  htmlFor="phone"
+                  className="block text-sm text-[#4a4a4a] mb-2"
+                >
+                  Telefone / WhatsApp <span className="text-red-500">*</span>
+                </label>
                 <input
                   type="tel"
+                  id="phone"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-[#e5e5e5] focus:border-[#8b7355] focus:outline-none transition-colors"
+                  className={`w-full px-4 py-3 border ${
+                    errors.phone ? "border-red-500" : "border-[#e5e5e5]"
+                  } focus:border-[#8b7355] focus:outline-none transition-colors`}
                   placeholder="(11) 99999-9999"
                   required
+                  aria-required="true"
+                  aria-invalid={!!errors.phone}
+                  aria-describedby={errors.phone ? "phone-error" : undefined}
+                  autoComplete="tel"
                 />
+                {errors.phone && (
+                  <p id="phone-error" className="text-red-500 text-sm mt-1" role="alert">
+                    {errors.phone}
+                  </p>
+                )}
               </div>
 
               <div>
-                <label className="block text-sm text-[#4a4a4a] mb-2">Tipo de evento</label>
+                <label
+                  htmlFor="eventType"
+                  className="block text-sm text-[#4a4a4a] mb-2"
+                >
+                  Tipo de evento <span className="text-red-500">*</span>
+                </label>
                 <select
+                  id="eventType"
                   name="eventType"
                   value={formData.eventType}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-[#e5e5e5] focus:border-[#8b7355] focus:outline-none transition-colors bg-white"
+                  className={`w-full px-4 py-3 border ${
+                    errors.eventType ? "border-red-500" : "border-[#e5e5e5]"
+                  } focus:border-[#8b7355] focus:outline-none transition-colors bg-white`}
                   required
+                  aria-required="true"
+                  aria-invalid={!!errors.eventType}
+                  aria-describedby={errors.eventType ? "eventType-error" : undefined}
                 >
                   <option value="">Selecione...</option>
                   {EVENT_TYPES.map((type) => (
@@ -228,16 +389,28 @@ Mensagem: ${formData.message}`;
                     </option>
                   ))}
                 </select>
+                {errors.eventType && (
+                  <p id="eventType-error" className="text-red-500 text-sm mt-1" role="alert">
+                    {errors.eventType}
+                  </p>
+                )}
               </div>
 
               <div>
-                <label className="block text-sm text-[#4a4a4a] mb-2">Data do evento (aproximada)</label>
+                <label
+                  htmlFor="eventDate"
+                  className="block text-sm text-[#4a4a4a] mb-2"
+                >
+                  Data do evento (aproximada)
+                </label>
                 <input
                   type="date"
+                  id="eventDate"
                   name="eventDate"
                   value={formData.eventDate}
                   onChange={handleChange}
                   className="w-full px-4 py-3 border border-[#e5e5e5] focus:border-[#8b7355] focus:outline-none transition-colors"
+                  min={new Date().toISOString().split("T")[0]}
                 />
               </div>
             </motion.div>
@@ -256,28 +429,36 @@ Mensagem: ${formData.message}`;
                 <h3 className="font-serif text-xl text-[#1a1a1a] mb-2">
                   Sua visão
                 </h3>
-                <p className="text-sm text-[#737373]">
+                <p className="text-sm text-[#525252]">
                   Descreva sua ideia ou inspiração
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm text-[#4a4a4a] mb-2">
-                  Mensagem <span className="text-[#a3a3a3]">(opcional)</span>
+                <label
+                  htmlFor="message"
+                  className="block text-sm text-[#4a4a4a] mb-2"
+                >
+                  Mensagem <span className="text-[#737373]">(opcional)</span>
                 </label>
                 <textarea
+                  id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   rows={5}
                   className="w-full px-4 py-3 border border-[#e5e5e5] focus:border-[#8b7355] focus:outline-none transition-colors resize-none"
                   placeholder="Descreva sua ideia, referências, o tipo de peça que imagina..."
+                  maxLength={1000}
                 />
+                <p className="text-xs text-[#737373] mt-1">
+                  {formData.message.length}/1000 caracteres
+                </p>
               </div>
 
               {/* Summary */}
-              <div className="bg-[#fafafa] p-4 text-sm">
-                <p className="text-[#737373] mb-2">Resumo:</p>
+              <div className="bg-[#fafafa] p-4 text-sm" role="region" aria-label="Resumo do formulário">
+                <p className="text-[#525252] mb-2">Resumo:</p>
                 <p className="text-[#1a1a1a]">
                   <strong>{formData.name}</strong> • {formData.eventType}
                   {formData.eventDate && ` • ${new Date(formData.eventDate).toLocaleDateString("pt-BR")}`}
@@ -309,6 +490,7 @@ Mensagem: ${formData.message}`;
               className="btn btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
               whileHover={isStepValid() ? { scale: 1.02 } : {}}
               whileTap={isStepValid() ? { scale: 0.98 } : {}}
+              aria-disabled={!isStepValid()}
             >
               Continuar
             </motion.button>

@@ -56,28 +56,39 @@ export default function Footer() {
                 animate={{ opacity: 1, y: 0 }}
                 className="flex items-center justify-center gap-2"
                 style={{ color: '#8b7355' }}
+                role="status"
+                aria-live="polite"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
                 <span className="text-sm">Inscrito com sucesso!</span>
               </motion.div>
             ) : (
               <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Seu melhor email"
-                  className="flex-1 px-4 py-3 text-sm transition-colors"
-                  style={{
-                    backgroundColor: '#242424',
-                    border: '1px solid #333333',
-                    color: '#ffffff',
-                    outline: 'none',
-                  }}
-                  required
-                />
+                <div className="flex-1">
+                  <label htmlFor="newsletter-email" className="sr-only">
+                    Seu melhor email
+                  </label>
+                  <input
+                    type="email"
+                    id="newsletter-email"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Seu melhor email"
+                    className="w-full px-4 py-3 text-sm transition-colors"
+                    style={{
+                      backgroundColor: '#242424',
+                      border: '1px solid #333333',
+                      color: '#ffffff',
+                      outline: 'none',
+                    }}
+                    required
+                    aria-required="true"
+                    autoComplete="email"
+                  />
+                </div>
                 <motion.button
                   type="submit"
                   className="px-5 py-3 text-sm font-medium transition-colors whitespace-nowrap"
@@ -178,15 +189,36 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Bottom */}
+          {/* Legal Links */}
           <div
-            className="mt-10 md:mt-12 pt-6 md:pt-8 flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4"
+            className="mt-10 md:mt-12 pt-6 md:pt-8 flex flex-wrap justify-center gap-6"
             style={{ borderTop: '1px solid #333333' }}
           >
-            <p className="text-xs text-center md:text-left" style={{ color: '#737373' }}>
+            <Link
+              href="/politica-privacidade"
+              className="text-xs transition-colors"
+              style={{ color: '#a3a3a3' }}
+            >
+              Política de Privacidade
+            </Link>
+            <Link
+              href="/termos-uso"
+              className="text-xs transition-colors"
+              style={{ color: '#a3a3a3' }}
+            >
+              Termos de Uso
+            </Link>
+          </div>
+
+          {/* Bottom */}
+          <div
+            className="mt-6 pt-6 flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4"
+            style={{ borderTop: '1px solid #333333' }}
+          >
+            <p className="text-xs text-center md:text-left" style={{ color: '#525252' }}>
               &copy; {new Date().getFullYear()} HIDAKA Ateliê. Todos os direitos reservados.
             </p>
-            <p className="text-xs" style={{ color: '#737373' }}>
+            <p className="text-xs" style={{ color: '#525252' }}>
               Desenvolvido por{" "}
               <a
                 href="https://growthboss.co"

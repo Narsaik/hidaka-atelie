@@ -1,29 +1,30 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { getWhatsAppLink } from "@/lib/constants";
 import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/animations/ScrollReveal";
 
 const portfolioItems = [
-  { id: 1, title: "Vestido de Noiva Clássico", category: "Noiva", description: "Renda francesa e seda pura" },
-  { id: 2, title: "Vestido de Festa Longo", category: "Festa", description: "Cetim italiano com bordados" },
-  { id: 3, title: "Conjunto Sob Medida", category: "Sob Medida", description: "Alfaiataria feminina refinada" },
-  { id: 4, title: "Vestido de Madrinha", category: "Festa", description: "Chiffon com detalhes dourados" },
-  { id: 5, title: "Traje para Formatura", category: "Festa", description: "Design contemporâneo elegante" },
-  { id: 6, title: "Peça Autoral", category: "Autoral", description: "Criação única conceitual" },
-  { id: 7, title: "Vestido de Noiva Moderno", category: "Noiva", description: "Minimalismo sofisticado" },
-  { id: 8, title: "Blazer Personalizado", category: "Sob Medida", description: "Corte impecável sob medida" },
-  { id: 9, title: "Vestido de Gala", category: "Autoral", description: "Arte em movimento" },
+  { id: 1, title: "Vestido de Noiva Clássico", category: "Noiva", description: "Renda francesa e seda pura", image: "/images/portfolio/01.jpg" },
+  { id: 2, title: "Vestido de Festa Longo", category: "Festa", description: "Cetim italiano com bordados", image: "/images/portfolio/02.jpg" },
+  { id: 3, title: "Conjunto Sob Medida", category: "Sob Medida", description: "Alfaiataria feminina refinada", image: "/images/portfolio/03.jpg" },
+  { id: 4, title: "Vestido de Madrinha", category: "Festa", description: "Chiffon com detalhes dourados", image: "/images/portfolio/04.jpg" },
+  { id: 5, title: "Traje para Formatura", category: "Festa", description: "Design contemporâneo elegante", image: "/images/portfolio/05.jpg" },
+  { id: 6, title: "Peça Autoral", category: "Autoral", description: "Criação única conceitual", image: "/images/portfolio/06.jpg" },
+  { id: 7, title: "Vestido de Noiva Moderno", category: "Noiva", description: "Minimalismo sofisticado", image: "/images/portfolio/07.jpg" },
+  { id: 8, title: "Blazer Personalizado", category: "Sob Medida", description: "Corte impecável sob medida", image: "/images/portfolio/08.jpg" },
+  { id: 9, title: "Vestido de Gala", category: "Autoral", description: "Arte em movimento", image: "/images/portfolio/09.jpg" },
 ];
 
 const categories = ["Todos", "Noiva", "Festa", "Sob Medida", "Autoral"];
 
 const makingOfSteps = [
-  { id: 1, title: "Seleção de Tecidos", description: "Curadoria de materiais premium" },
-  { id: 2, title: "Modelagem", description: "Cada curva pensada para você" },
-  { id: 3, title: "Costura Artesanal", description: "Mãos experientes, pontos perfeitos" },
-  { id: 4, title: "Acabamentos", description: "Detalhes que fazem a diferença" },
+  { id: 1, title: "Seleção de Tecidos", description: "Curadoria de materiais premium", image: "/images/making-of/01.jpg" },
+  { id: 2, title: "Modelagem", description: "Cada curva pensada para você", image: "/images/making-of/02.jpg" },
+  { id: 3, title: "Costura Artesanal", description: "Mãos experientes, pontos perfeitos", image: "/images/making-of/03.jpg" },
+  { id: 4, title: "Acabamentos", description: "Detalhes que fazem a diferença", image: "/images/making-of/04.jpg" },
 ];
 
 export default function PortfolioPage() {
@@ -100,32 +101,19 @@ export default function PortfolioPage() {
                   className="group cursor-pointer"
                   onClick={() => setSelectedItem(item.id)}
                 >
-                  {/* Image placeholder with enhanced hover */}
+                  {/* Image with enhanced hover */}
                   <motion.div
                     className="aspect-[3/4] bg-[#fafafa] relative overflow-hidden mb-4"
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center text-[#a3a3a3]">
-                        <motion.svg
-                          className="w-12 h-12 mx-auto mb-3 opacity-40"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          initial={{ rotate: 0 }}
-                          whileHover={{ rotate: 5 }}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={1}
-                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                          />
-                        </motion.svg>
-                        <p className="text-xs">Em breve</p>
-                      </div>
-                    </div>
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
                     {/* Hover overlay */}
                     <motion.div
                       className="absolute inset-0 bg-[#1a1a1a] flex items-center justify-center"
@@ -211,14 +199,22 @@ export default function PortfolioPage() {
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-                    <span className="text-[11px] uppercase tracking-[0.2em] text-[#8b7355] mb-2">
+                  <Image
+                    src={step.image}
+                    alt={step.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                  />
+                  {/* Overlay with text */}
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors flex flex-col items-center justify-center p-4 text-center">
+                    <span className="text-[11px] uppercase tracking-[0.2em] text-[#d4af37] mb-2">
                       {String(step.id).padStart(2, '0')}
                     </span>
-                    <span className="font-serif text-[#1a1a1a] text-sm group-hover:text-[#8b7355] transition-colors">
+                    <span className="font-serif text-white text-sm group-hover:text-[#d4af37] transition-colors">
                       {step.title}
                     </span>
-                    <span className="text-[#a3a3a3] text-xs mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="text-white/70 text-xs mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
                       {step.description}
                     </span>
                   </div>
@@ -298,24 +294,15 @@ export default function PortfolioPage() {
                 if (!item) return null;
                 return (
                   <>
-                    {/* Image placeholder */}
-                    <div className="aspect-[4/5] bg-[#fafafa] mb-6 flex items-center justify-center">
-                      <div className="text-center text-[#a3a3a3]">
-                        <svg
-                          className="w-16 h-16 mx-auto mb-3 opacity-40"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={1}
-                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                          />
-                        </svg>
-                        <p className="text-sm">Imagem em breve</p>
-                      </div>
+                    {/* Image */}
+                    <div className="aspect-[4/5] bg-[#fafafa] mb-6 relative overflow-hidden">
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
                     </div>
 
                     {/* Info */}

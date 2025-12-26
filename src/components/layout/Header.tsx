@@ -70,7 +70,9 @@ export default function Header() {
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden p-2 -mr-2"
-            aria-label="Toggle menu"
+            aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
           >
             <div className="w-5 h-4 relative flex flex-col justify-between">
               <span
@@ -100,7 +102,8 @@ export default function Header() {
       </div>
 
       {/* Mobile Menu */}
-      <div
+      <nav
+        id="mobile-menu"
         className="md:hidden transition-all duration-300 overflow-hidden"
         style={{
           backgroundColor: '#ffffff',
@@ -108,8 +111,9 @@ export default function Header() {
           maxHeight: isOpen ? '400px' : '0',
           opacity: isOpen ? 1 : 0,
         }}
+        aria-hidden={!isOpen}
       >
-        <nav className="container py-6 flex flex-col gap-1">
+        <div className="container py-6 flex flex-col gap-1">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -123,8 +127,8 @@ export default function Header() {
               {link.label}
             </Link>
           ))}
-        </nav>
-      </div>
+        </div>
+      </nav>
     </header>
   );
 }
