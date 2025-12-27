@@ -23,6 +23,8 @@ interface FormErrors {
 export default function ConsultationForm() {
   const [step, setStep] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [errors, setErrors] = useState<FormErrors>({});
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -108,13 +110,39 @@ export default function ConsultationForm() {
 
   const prevStep = () => setStep(step - 1);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateStep(3)) return;
 
-    // Format message for WhatsApp
-    const message = `Olá! Gostaria de agendar uma consulta.
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      // Save to database first
+      const response = await fetch("/api/consultation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          eventType: formData.eventType,
+          eventDate: formData.eventDate || null,
+          message: formData.message || null,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Erro ao enviar solicitação");
+      }
+
+      // Format message for WhatsApp
+      const message = `Olá! Gostaria de agendar uma consulta.
 
 Nome: ${formData.name}
 Email: ${formData.email}
@@ -123,12 +151,22 @@ Tipo de evento: ${formData.eventType}
 Data do evento: ${formData.eventDate || "A definir"}
 Mensagem: ${formData.message || "Sem mensagem adicional"}`;
 
-    setIsSubmitted(true);
+      setIsSubmitted(true);
 
-    // Open WhatsApp after a delay
-    setTimeout(() => {
-      window.open(getWhatsAppLink(message), "_blank");
-    }, 2000);
+      // Open WhatsApp after a delay
+      setTimeout(() => {
+        window.open(getWhatsAppLink(message), "_blank");
+      }, 2000);
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Erro ao enviar. Tente novamente."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const isStepValid = () => {
@@ -464,6 +502,13 @@ Mensagem: ${formData.message || "Sem mensagem adicional"}`;
                   {formData.eventDate && ` • ${new Date(formData.eventDate).toLocaleDateString("pt-BR")}`}
                 </p>
               </div>
+
+              {/* Error Display */}
+              {submitError && (
+                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded" role="alert">
+                  <p className="text-sm">{submitError}</p>
+                </div>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
@@ -497,11 +542,22 @@ Mensagem: ${formData.message || "Sem mensagem adicional"}`;
           ) : (
             <motion.button
               type="submit"
-              className="btn btn-primary"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              className="btn btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+              whileHover={!isSubmitting ? { scale: 1.02 } : {}}
+              whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+              disabled={isSubmitting}
             >
-              Enviar Solicitação
+              {isSubmitting ? (
+                <span className="flex items-center gap-2">
+                  <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                  Enviando...
+                </span>
+              ) : (
+                "Enviar Solicitação"
+              )}
             </motion.button>
           )}
         </div>
